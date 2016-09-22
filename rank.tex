@@ -1,0 +1,1033 @@
+\chapter{The BSD Rank Conjecture}\label{ch:rank}
+This chapter explains the conjecture that Birch and Swinnerton-Dyer
+made about ranks of elliptic curves (the BSD rank conjecture).
+
+\section{Statement of the BSD Rank Conjecture}\label{sec:bsdrank}
+
+An excellent reference for this section is Andrew Wiles's 
+Clay Math Institute paper \cite{wiles:cmi}.   The reader
+is also strongly encouraged to look Birch's original
+paper \cite{birch:bsd} to get a better sense of the excitement
+surrounding this conjecture, as exemplified in the following
+quote:
+\begin{quote}
+  ``I want to describe some computations undertaken by myself and
+  Swinnerton-Dyer on EDSAC by which we have calculated the
+  zeta-functions of certain elliptic curves. As a result of these
+  computations we have found an analogue for an elliptic curve of the
+  Tamagawa number of an algebraic group; and conjectures (due to
+  ourselves, due to Tate, and due to others) have proliferated.''
+\end{quote}
+
+An \defn{elliptic curve} $E$ over a field $K$
+is the projective closure
+of the zero locus of a nonsingular affine curve 
+\begin{equation}\label{eqn:weq}
+   y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6,
+\end{equation}
+where $a_1,a_2,a_3,a_4,a_6\in K$.
+There is a simple algebraic condition on the $a_i$ that 
+ensures that \eqref{eqn:weq} defines a nonsingular curve
+(see, e.g., \cite{silverman:aec}).
+
+An elliptic curve $E$ has genus $1$, and the set of points on $E$ has
+a natural structure of {\em abelian group}, with identity element the one
+extra projective point at~$\infty$.  Again, there are simple algebraic
+formulas that, given two points $P$ and $Q$ on an elliptic curve,
+produce a third point  $P+Q$  on the elliptic curve.  Moreover,
+if $P$ and $Q$ both have coordinates in $K$, then so does $P+Q$.
+The \defn{Mordell-Weil group}
+$$
+  E(K) = \{\text{ points on $E$ with coordinates in $K$ }\}
+$$
+of $E$ over $K$ plays a central role in this book. 
+
+In the 1920s, Mordell proved that if $K=\Q$, then $E(\Q)$ is finitely
+generated, and soon after Weil proved that $E(K)$ is finitely
+generated for any number field $K$, so
+\begin{equation}\label{eqn:rt}
+   E(K) \ncisom \Z^r \oplus T,
+ \end{equation}
+ where $T$ is a finite group.
+Perhaps the chief invariant of an elliptic curve $E$ over a number
+field $K$ is the \defn{rank}, which is the number $r$ in
+\eqref{eqn:rt}.
+
+Fix an elliptic curve $E$ over $\Q$.  For all but finitely
+many prime numbers $p$, the equation \eqref{eqn:weq} 
+reduces modulo $p$ to  define an elliptic curve 
+over the finite field $\F_p$.  
+The primes that must be excluded are exactly the primes that divide
+the discriminant $\Delta$ of \eqref{eqn:weq}.
+
+As above, the set
+of points $E(\F_p)$ is an abelian group.  This group
+is finite, because it is contained in the set $\P^2(\F_p)$ of
+rational points in the projective plane.    Moreover,
+since it is the set of points on a (genus 1) curve,
+a theorem of Hasse implies that
+$$
+    |p+1 - \#E(\F_p) | \leq 2\sqrt{p}.
+$$
+The error terms
+$$
+   a_p = p+1 - \#E(\F_p)
+$$
+play a central role in almost everything in this book.
+We next gather together the error terms into a single
+``generating function'':
+$$
+  \tilde{L}(E,s) = \prod_{p\nmid \Delta}
+     \left( \frac{1}{1 - a_p p^{-s} + p^{1-2s}}\right).
+$$
+The function $\tilde{L}(E,s)$ defines a complex
+analytic function on some right half plane $\Re(s)>\frac{3}{2}$.
+
+A deep theorem of Wiles et al. \cite{wiles:fermat,
+  breuil-conrad-diamond-taylor}, which many consider the crowning
+achievement of 1990s number theory, implies that
+$\tilde{L}(E,s)$ can be analytically continued to an analytic function
+on all~$\C$.  This implies that $\tilde{L}(E,s)$ has a Taylor series
+expansion about $s=1$:
+$$
+    \tilde{L}(E,s) = c_0  + c_1 (s-1) + c_2 (s-1)^2 + \cdots 
+$$
+Define the \defn{analytic rank} $r_{\an}$ of $E$ to be the order of vanishing
+of $\tilde{L}(E,s)$ as $s=1$, so 
+$$
+    \tilde{L}(E,s) =  c_{r_{\an}} (s-1)^{r_{\an}} + \cdots.
+$$
+The definitions of the analytic and Mordell-Weil ranks
+could not be more different -- one is completely analytic and the
+other is purely algebraic. 
+
+\begin{conjecture}[Birch and Swinnerton-Dyer Rank Conjecture]\label{conj:bsdrank}
+Let $E$ be an elliptic curve over $\Q$.  Then the
+algebraic and analytic ranks of $E$ are the same. 
+\end{conjecture}
+
+{\em This problem is extremely difficult.}  The conjecture was made
+in the 1960s, and hundreds of people have thought about it
+for over 4 decades.  
+The work of Wiles et al. on modularity in late 1999,
+combined with earlier work of Gross, Zagier, and Kolyvagin,
+and many others proves the following partial result toward
+the conjecture.
+
+\begin{theorem}
+Suppose $E$ is an elliptic curve over $\Q$ and that $r_{\an} \leq 1$. 
+Then the algebraic and analytic ranks of $E$ are the same. 
+\end{theorem}
+
+In 2000, Conjecture~\ref{conj:bsdrank} was declared a million dollar
+millenium prize problem by the Clay Mathematics Institute, which
+motivated even more work, conferences, etc., on the conjecture.  Since
+then, to the best of my knowledge, not a single new result directly
+about Conjecture~\ref{conj:bsdrank} has been 
+proved\footnote{Much interesting new work
+has been done on related conjectures and problems.}.  
+The class of curves for which
+we know the conjecture is still the set of curves over $\Q$ with
+$r_{\an} \leq 1$, along with a finite set of individual curves on
+which further computer calculations have been performed (by Cremona,
+Watkins, myself, and others).
+
+\begin{quote}
+\noindent{\em ``A new idea is needed.''} 
+
+-- Nick Katz on BSD, at a 2001 Arizona Winter School
+\end{quote}
+
+And another quote from Bertolini-Darmon (2001):
+\begin{quote}
+``The following question stands as the ultimate
+challenge concerning the Birch and Swinnerton-Dyer conjecture
+for elliptic curves over $\QQ$: {\em Provide evidence for
+the Birch and Swinnerton-Dyer conjecture in cases where~$\ord_{s=1} L(E,s)~>~1$.}''
+\end{quote}
+
+
+\section{The BSD Rank Conjecture Implies that $E(\Q)$ is Computable}\label{sec:bsdimpliescomputable}
+
+
+ \begin{proposition}\label{prop:bsdalgrank}
+Let $E$ be an elliptic curve over $\QQ$. 
+ If Conjecture~\ref{conj:bsdrank} is true, then 
+there is an algorithm to compute the rank of $E$.
+ \end{proposition}
+ \begin{proof}
+   By naively searching for points in $E(\QQ)$ we obtain a lower bound
+   on $r$, which is closer and closer to the true rank $r$, the longer
+   we run the search.  At some point this lower bound will equal $r$,
+   but without using further information we do not know when that will
+   occur.  
+
+   As explained, e.g., in \cite{cremona:algs} (see also
+   \cite{dokchitser:lfun}), we can for any $k$ compute
+   $L^{(k)}(E,1)$ to any desired precision.  Such computations yield
+   upper bounds on $r_{\an}$.  In particular, if we compute
+   $L^{(k)}(E,1)$ and it is nonzero (to the precision of our
+   computation), then $r_{\an} \leq k$.  Eventually this method will
+   also converge to give an upper bound on $r_{\an}$, though again
+   without further information we do not know when our computed upper
+   bound on $r_{\an}$ equals to the true value of $r_{\an}$.  
+
+   Since we are assuming that Conjecture~\ref{conj:bsdrank} is true, we know
+   that $r = r_{\an}$, hence at some point the lower bound on $r$
+   computed using point searches will equal the upper bound on
+   $r_{\an}$ computed using the $L$-series.  At this point, by
+   Conjecture~\ref{conj:bsdrank}, we know the true value of $r$.  
+   \end{proof}
+
+Next we show that given the rank $r$, the
+full group $E(\QQ)$ is computable.  The issue is that
+what we did above might have only computed a subgroup
+of finite index.  The argument below follows
+\cite[\S3.5]{cremona:algs} closely.
+
+The \defn{naive height} $h(P)$ of a point $P =(x,y) \in E(\QQ)$
+is $$h(P) = \log(\max(\numer(x),\denom(x))).$$ The \defn{N\'eron-Tate 
+canonical height} of $P$ is 
+$$
+  \hat{h}(P) = \lim_{n\to\infty} \frac{h(2^n P)}{4^n}.
+$$
+Note that if $P$ has finite order then $\hat{h}(P)=0$.
+Also, a standard result  is 
+ that the \defn{height pairing}
+$$
+\langle P,Q\rangle =  \frac{1}{2}\left( \hat{h}(P+Q) - \hat{h}(P) - \hat{h}(Q)\right)
+$$
+defines a nondegenerate real-valued quadratic form on $E(\QQ)/_{\tor}$
+with discrete image.
+
+\begin{lemma}\label{lem:allgen}
+Let $B>0$ be a positive real number such that 
+$$
+   S = \{ P \in E(\QQ)\, : \, \hat{h}(P) \leq B \}
+$$
+contains a set of generators for $E(\QQ)/2 E(\QQ)$.  Then
+$S$ generates $E(\QQ)$.
+\end{lemma}
+\begin{proof}
+  Let $A$ be the subgroup of $E(\QQ)/_{\tor}$ generated by the points
+  in $S$.  Suppose for the sake of contradiction that $A$ is a proper
+  subgroup. Then there is $Q\in E(\Q)\setminus A$ with $\hat{h}(Q)$
+minimal, since $\hat{h}$ takes a discrete set of values.
+Since $S$ contains generators for $E(\QQ)/2 E(\QQ)$, there is
+an element $P \in S$ that is congruent to $Q$ modulo $2 E(\QQ)$, 
+i.e., so that
+   $$
+      Q = P + 2R,
+$$
+for some $R\in E(\QQ)$.
+We have $R\not\in A$ (since otherwise $Q$ would be in $A$), so
+$\hat{h}(R)\geq \hat{h}(Q)$ by minimality.  
+Finally, since $\hat{h}$ is quadratic and nonnegative, we have
+\begin{align*}
+ \hat{h}(P) &= \frac{1}{2}\left(\hat{h}(Q+P) + \hat{h}(Q-P) - \hat{h}(Q)\right)\\
+   &\geq \frac{1}{2} \hat{h}(2R) - \hat{h}(Q)\\
+  &=2\hat{h}(R) - \hat{h}(Q) \geq \hat{h}(Q) > B.
+\end{align*}
+(Here we use that $\hat{h}(P) =\langle P, P\rangle$
+and use properties of a bilinear form.)
+\end{proof}
+
+\begin{proposition}
+Let $E$ be an elliptic curve over $\QQ$. 
+ If Conjecture~\ref{conj:bsdrank} is true, then 
+there is an algorithm to compute $E(\QQ)$.
+\end{proposition}
+\begin{proof}
+  By Proposition~\ref{prop:bsdalgrank} we can compute the rank $r$ of
+  $E(\QQ)$.  Note that we can also trivially compute the subgroup
+  $E(\QQ)[2]$ of elements of order $2$ in $E(\QQ)$, since if $E$ is
+  given by $y^2=x^3+ax+b$, then this subgroup is generated by points
+  $(\alpha, \beta)$, where $\alpha$ is a rational root of $x^3+ax+b$.
+  Thus we can compute $s = \dim_{\F_2} E(\QQ)/2 E(\QQ)$, since it is equal to $r
+  + \dim E(\QQ)[2]$.  
+
+  Run any search for points in $E(\QQ)$ and use that $\hat{h}$ is a
+  nondegenerate quadratic form to find independent points $P_1,\ldots,
+  P_r$ of infinite order.  It is easy to check whether a point $P$ is
+  twice another point (just solve a relatively simple algebraic
+  equation).  Run through all subsets of the points $P_i$, and if any
+  subset of the $P_i$ sums to $2Q$ for some point $Q\in E(\QQ)$, then we
+  replace one of the $P_i$ by $Q$ and decrease the index of
+  our subgroup in $E(\QQ)$ by a factor of $2$.  Because $E(\QQ)$ is a
+  finitely generated group, after a finite number of steps (and
+  including the $2$-torsion points found above) we obtain independent
+  points $P_1,\ldots, P_s$ that generate $E(\QQ)/2 E(\QQ)$.
+
+  Let $C$ the the explicit bound of Cremona-Pricket-Siksek on the
+  difference between the naive and canonical height (i.e., for any
+   $P \in E(\Q)$, we have $|h(P) - \hat{h}(P)| < C$). 
+Let
+ $$
+    B = \max\{\hat{h}(P_1), \ldots, \hat{h}(P_s)\}.
+$$
+Then by a point search up to naive height $B+C$, we compute a set that
+contains the set $S$ in Lemma~\ref{lem:allgen}.  This set
+then contains generators for $E(\Q)$, hence we have computed $E(\Q)$.
+
+   \end{proof}
+
+\section{The Complex $L$-series $L(E,s)$}\label{sec:complexles}
+In Section~\ref{sec:bsdrank} we defined a function $\tilde{L}(E,s)$,
+which encoded information about $E(\F_p)$ for all but finitely
+many primes $p$.  In this section we define the function $L(E,s)$,
+which includes information about all primes, and the function
+$\Lambda(E,s)$ that also includes information ``at infinity''. 
+
+Let $E$ be an elliptic curve over $\QQ$ defined by {\em a}
+\defn{minimal Weierstrass equation}
+\begin{equation}\label{eqn:minweq}
+  y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6.
+\end{equation}
+A minimal Weierstrass equation in one for which the $a_i$
+are all integers and the discriminant $\Delta\in\ZZ$ is minimal
+amongs all discriminants of Weierstrass equations for $E$
+(again, see \cite{silverman:aec} for the definition of the
+discriminant of a Weierstrass equation, and also for an
+explicit description of the allowed transformations of 
+a Weierstrass equation). 
+
+For each prime number $p\nmid \Delta$, the equation 
+\eqref{eqn:minweq} reduces modulo~$p$ to define an elliptic 
+$E_{\F_p}$ over the finite field $\F_p$.  Let
+$$
+   a_p = p + 1 - \#E(\F_p).
+$$
+For each prime $p\mid \Delta$, we use the following
+recipe to define $a_p$.  If the {\em singular} curve
+$E_{\F_p}$ has a cuspidal singularity, e.g., is
+$y^2 = x^3$, then let $a_p = 0$.  If it has a a nodal
+singularity, e.g., like $y^2=x^3+x^2$, let $a_p=1$
+if the slope of the tangent line at the singular
+point is in $\F_p$ and let $a_p=-1$ if the slope is
+not in $\F_p$.  Summarizing:
+$$
+  a_p = \begin{cases} 
+0 & \text{if the reduction is cuspidal (``additive'')},\\
+1 & \text{if the reduction is nodal and tangent line is $\F_p$-rational (``split multiplicative'')}\\
+-1 &\text{if the reduction is nodal and tangent line is not $\F_p$-rational (``non-split multiplicative'')}
+\end{cases}
+$$
+
+Even in the cases when $p\mid \Delta$, we still have
+$$
+  a_p = p + 1 - \#E(\F_p).
+$$
+When $E$ has additive reduction, the nonsingular points 
+form a group isomorphic to $(\F_p,+)$, and there is
+one singular point, hence $p+1$ points,
+so 
+$$
+  a_p = p+1 - (p+1))) = 0.
+$$ When $E$
+has split multiplicative reduction, there is 1 singular
+point plus the number of elements of a group isomorphic to $(\F_p^*, \times)$,
+so $1 + (p-1) = p$ points, and 
+$$
+  a_p = p+1-p = 1.
+$$
+When $E$ has non-split multiplicative
+reduction, there is $1$ singular point plus the number
+of elements of a group isomorphic $(\F_{p^2}^*/\F_p^*, \times)$,
+i.e., $p+2$ points, and 
+$$
+  a_p = p+1 - (p+2) = -1.
+$$
+
+The definition of the full $L$-function of $E$ is then
+$$
+ L(E,s) = \prod_{p\mid \Delta} \frac{1}{1-a_p p^{-s}} \cdot
+         \prod_{p\nmid \Delta} \frac{1}{1-a_p p^{-s} + p\cdot p^{-2s}}.
+  = \sum_{n=1}^{\infty} \frac{a_n}{n^s}.
+$$
+
+If in addition we add in a few more analytic factors to the $L$-function
+we obtain a function $\Lambda(E,s)$ that satisfies a remarkably simple
+functional equation.  
+Let 
+$$
+  \Gamma(z) = \int_{0}^{\infty} t^{z-1} e^{-t} dt
+$$
+be the \defn{$\Gamma$-function} (e.g., $\Gamma(n) = (n-1)!$),
+which defines a meromorphic function on $\C$, with poles
+at the non-positive integers. 
+\begin{theorem}[Hecke, Wiles et al.]\label{thm:functional}
+  There is a unique positive integer $N=N_E$ and sign $\eps=\eps_E\in\{\pm 1\}$
+  such that the function
+$$
+  \Lambda(E,s) = N^{s/2}\cdot (2\pi)^{-s}\cdot \Gamma(s)\cdot L(E,s)
+$$
+extends to a complex analytic function on all $\C$ that
+satisfies the functional equation
+\begin{equation}\label{eqn:functional}
+  \Lambda(E,2-s) = \eps \cdot \Lambda(E,s),
+\end{equation}
+for all $s\in \CC$.
+\end{theorem}
+\begin{proof}
+Wiles et al. prove that $L(E,s)$ is the $L$-series
+attached to a modular form (see Section~\ref{sec:modularity} below),
+and Hecke proved that the $L$-series of a modular
+form analytically continues and satisfies the given
+functional equation.
+\end{proof}
+
+The integer $N=N_E$ is called the \defn{conductor} of
+$E$ and $\eps=\eps_E$ is called the \defn{sign in the functional
+equation} for $E$ or the \defn{root number} of $E$.
+One can prove that the primes that divide $N$ are the same
+as the primes that divide $\Delta$.  Moreover, for $p\geq 5$,
+we have that 
+$$
+\ord_p(N) = \begin{cases}
+   0,& \text{if $p\nmid \Delta$},\\
+   1,&\text{if $E$ has multiplicative reduction at $p$, and}\\
+   2,&\text{if $E$ has additive reduction at $p$}.
+ \end{cases}
+ $$
+There is a geometric algorithm called Tate's algorithm that
+computes $N$ in all cases and $\eps$.   
+
+\begin{example}
+Consider the elliptic curve $E$ defined by
+$$
+  	y^2 + y = x^3 + 50x + 31.
+$$
+The above Weierstrass equation is minimal and
+has discriminant
+$$
+ -1 \cdot 5^{6} \cdot 7^{2} \cdot 11.
+$$
+\begin{verbatim}
+sage: e = EllipticCurve('1925d'); e
+Elliptic Curve defined by y^2 + y = x^3 + 50*x + 31 over Rational Field
+sage: e.is_minimal()
+True
+sage: factor(e.discriminant())
+-1 * 5^6 * 7^2 * 11
+\end{verbatim}%link
+
+\noindent{}At $5$ the curve has additive reduction so $a_5 = 0$.
+At $7$ the curve has split multiplicative reduction
+so $a_7 = 1$.  At $11$ the curve has nonsplit multiplicative
+reduction, so $a_{11} = -1$.  Counting points for $p=2,3$,
+we find that
+$$
+ L(E,s) =     	
+\frac{1}{1^{-s}} + \frac{3}{3^{-s}} + \frac{-2}{4^{-s}} + \frac{1}{7^{-s}} +
+\frac{6}{9^{-s}} + \frac{-1}{11^{-s}} + \frac{-6}{12^{-s}} + \cdots
+$$
+%link
+\begin{verbatim}
+sage: [e.ap(p) for p in primes(14)]
+[0, 3, 0, 1, -1, 4]
+\end{verbatim}
+\end{example}
+
+\begin{corollary}\label{cor:parity}
+Let $E$ be an elliptic curve over $\QQ$, let $\eps \in \{1, -1\}$
+be the sign in the functional equation \eqref{eqn:functional},
+and let $r_{E,\an} = \ord_{s=1} L(E,s)$.
+Then $$\eps = (-1)^{r_{E,\an}}.$$
+\end{corollary}
+\begin{proof}
+Because $\Gamma(1)=1$, we have $\ord_{s=1} L(E,s) = \ord_{s=1} \Lambda(E,s)$.
+It thus sufficies to prove the corollary with $L(E,s)$ 
+replaced by $\Lambda(E,s)$.  Note that $r = r_{E,\an}$ is the minimal
+integer $r\geq 0$ such that $\Lambda^{(r)}(E,1)\neq 0$.
+By repeated differentiation, we see that for any integer $k\geq 0$,
+we have
+\begin{equation}\label{eqn:parity}
+  (-1)^k \Lambda^{(k)}(E, 2-s) = \eps\cdot \Lambda^{(k)}(s).
+\end{equation}
+Setting $s=1$ and $k=r$, and using that 
+$\Lambda^{(r)}(E,1)\neq 0$, shows that $(-1)^r = \eps$, as claimed. 
+\end{proof}
+
+\begin{conjecture}[The Parity Conjecture]\label{conj:parity}
+  Let $E$ be an elliptic curve over $\QQ$, let $r_{E,\an}$ be the
+  analytic rank and $r_{E,\alj}$ be the algebraic rank. Then
+$$
+  r_{E,\alj} \con r_{E,\an} \pmod{2}.
+$$
+\end{conjecture}
+Jan Nekovar has done a huge amount of work toward
+Conjecture~\ref{conj:parity}; in particular, he proves it under the
+(as yet unproved) hypothesis that $\Sha(E)$ is finite (see
+Section~\ref{sec:sha} below).
+
+
+\section{Computing $L(E,s)$}
+In this section we briefly describe one way to evaluate $L(E,s)$,
+for $s$ real.   See \cite{dokchitser:lfun} for a more sophisticated
+analysis of computing $L(E,s)$ and its Taylor expansion for any
+complex number $s$.
+
+\begin{theorem}[Lavrik]\label{thm:computeL}
+We have the following
+rapidly-converging series expression for $L(E,s)$, for any 
+complex number $s$:
+$$
+L(E,s) = N^{-s/2}\cdot (2\pi)^s\cdot  \Gamma(s)^{-1}\cdot
+\sum_{n=1}^{\infty} a_n \cdot \left(F_n(s-1) - \eps F_n(1-s)\right)
+$$
+where
+$$
+  F_n(t) = 
+           \Gamma\left(t+1,\, \frac{2\pi n}{\sqrt{N}}\right)
+\cdot \left(\frac{\sqrt{N}}{2\pi n}\right)^{t+1},
+$$
+and
+$$
+  \Gamma(z,\alpha) = \int_{\alpha}^{\infty} t^{z-1} e^{-t}dt
+$$
+is the \defn{incomplete $\Gamma$-function}.
+\end{theorem}
+
+Theorem~\ref{thm:computeL} above is a special case of a more
+general theorem that gives rapidly converging series
+that allow computation of any Dirichlet series $\sum a_n n^s$
+that meromorphically continues to the whole complex plane and
+satisfies an appropriate functional equation.  
+For more details, see \cite[\S10.3]{cohen:advanced},
+especially Exercise~24 on page 521 of \cite{cohen:advanced}.
+
+
+\subsection{Approximating the Rank}
+Fix an elliptic curve $E$ over~$\Q$.  The usual method to {\em
+  approximate} the rank is to find a series that rapidly converges to
+$L^{(r)}(E,1)$ for $r=0,1,2,3,\ldots$, then compute $L(E,1)$,
+$L'(E,1)$, $L^{(2)}(E,1)$, etc., until one appears to be nonzero. 
+Note that half of the $L^{(k)}(E,1)$ are automatically $0$
+because of equation \eqref{eqn:parity}.
+For more details, see \cite[\S2.13]{cremona:algs}
+and \cite{dokchitser:lfun}. 
+
+In this section, we describe a slightly different method, which only
+uses Theorem~\ref{thm:computeL} and the definition of the derivative.
+
+\begin{proposition}
+Write 
+$$
+   L(E,s) = c_r(s-1)^r + c_{r+1}(s-1)^{r+1} + \cdots.
+$$
+with $c_r\neq 0$.  Then 
+$$ 
+  \lim_{s\ra 1}\,
+   (s-1)\cdot \frac{L'(E,s)}{L(E,s)} = r.
+$$
+\end{proposition}
+\begin{proof}
+Setting $L(s) = L(E,s)$, we have
+\begin{align*}
+ \lim_{s\ra 1} \, 
+  (s-1)\cdot \frac{L'(s)}{L(s)}
+   &=  \lim_{s\ra 1} \,
+         (s-1)\cdot \frac{r c_r (s-1)^{r-1} + (r+1) c_{r+1}(s-1)^r + \cdots}
+          {c_r(s-1)^r + c_{r+1}(s-1)^{r+1} + \cdots}\\
+   &=  r\cdot \lim_{s\ra 1} \,
+          \frac{c_r (s-1)^{r} + \frac{(r+1)}{r} c_{r+1}(s-1)^{r+1} + \cdots}
+          {c_r(s-1)^r + c_{r+1}(s-1)^{r+1} + \cdots}\\
+   &= r.
+\end{align*}
+\end{proof}
+
+Thus the rank~$r$ is 
+the limit as $s\ra 1$ of a certain (smooth) function.  We know this
+limit is an integer.  But, for example, for the rank $4$ curve 
+\begin{equation}\label{eqn:rank4}
+  y^2 +xy = x^3 - x^2 - 79x + 289
+\end{equation}
+of conductor 234446
+nobody has succeeded in proving that this integer limit is $4$.  (We
+can prove that the limit is either $2$ or $4$ by using 
+the functionality equation \eqref{eqn:functional} to show that
+the order of vanishing is even, then verifying by computation
+that $L^{(4)}(E,1)= 214.65233\ldots \neq 0$.)
+
+Using the definition of derivative, we approximate 
+$(s-1)\frac{L'(s)}{L(s)}$ as follows.  For $|s-1|$ small, we have
+\begin{align*}
+(s-1)\frac{L'(s)}{L(s)} &= 
+    \frac{s-1}{L(s)}\cdot \lim_{h\ra 0}  \frac{L(s+h) - L(s)}{h}\\
+    &\approx \frac{s-1}{L(s)}\cdot
+             \frac{L(s+(s-1)^2) - L(s)}{(s-1)^2}\\
+    &= \frac{L(s^2 - s+1) - L(s)}{(s-1)L(s)}
+\end{align*}
+
+In fact, we have
+$$
+  \lim_{s\ra 1}\, (s-1)\cdot \frac{L'(s)}{L(s)} 
+        = \lim_{s\ra 1} \frac{L(s^2 - s+1) - L(s)}{(s-1)L(s)}.
+$$
+
+We can use this formula in \sage to 
+``approximate''~$r$.  First we start
+with a curve of rank $2$.
+\begin{verbatim}
+sage: e = EllipticCurve('389a'); e.rank()
+2
+sage: L = e.Lseries_dokchitser()
+sage: def r(e,s): L1=L(s); L2=L(s^2-s+1); return (L2-L1)/((s-1)*L1)
+sage: r(e,1.01)
+2.00413534247395
+sage: r(e,1.001)
+2.00043133754756
+sage: r(e,1.00001)
+2.00000433133371
+\end{verbatim}
+
+Next consider the curve $y^2 +xy = x^3 - x^2 - 79x + 289$
+of rank~$4$:
+\begin{verbatim}
+sage: e =  EllipticCurve([1, -1, 0, -79, 289])
+sage: e.rank()
+4
+sage: L = e.Lseries_dokchitser(100)
+sage: def r(e,s): L1=L(s); L2=L(s^2-s+1); return (L2-L1)/((s-1)*L1)
+sage: R = RealField(100)
+sage: r(e,R('1.01'))
+4.0212949184444018810727106489
+sage: r(e,R('1.001'))
+4.0022223745190806421850637523
+sage: r(e,R('1.00001'))
+4.0000223250026401574120263050
+sage: r(e,R('1.000001'))
+4.0000022325922257758141597819
+\end{verbatim}
+
+It certainly looks like $\lim_{s\ra 1} r(s) = 4$.  We know that
+$\lim_{s\ra 1} r(s)\in\Z$, and if only there were a good way to bound
+the error we could conclude that the limit is~$4$.  But this has
+stumped people for years, and probably it is nearly impossible without
+a deep result that somehow interprets $L''(E,1)$ in a completely
+different way.
+
+\newpage
+\section{The $p$-adic $\cL$-series}\label{sec:padicldefn}
+Fix\footnote{This section is based on correspondence with Robert
+  Pollack and Koopa Koo.} an elliptic curve $E$ defined over $\QQ$.
+We say a prime $p$ is a prime of \defn{good ordinary reduction} for
+$E$ if $p\nmid N_E$ and $a_p \not\equiv 0 \pmod{p}$.  The Hasse bound,
+i.e., that $|a_p|< 2\sqrt{p}$ on implies that if $p\geq 5$ then
+ordinary at $p$ is the same as $a_p\neq 0$.
+
+In this section, we define for each odd prime number $p$ of good
+ordinary reduction for $E$ a $p$-adic $L$-function $L_p(E,T)$.  This
+is a $p$-adic analogue of the complex $L$-function 
+$L(E,s)$ about which there are similar analogue of the
+BSD conjecture.
+
+\subsection{Hensel's lemma and the Teichmuller lift}\label{sec:padicprelim}
+The following standard lemma is proved by Newton iteration.
+\begin{lemma}[Hensel]\label{lem:hensel}
+If $f \in \ZZ_p[x]$ is a polynomial and $\beta \in \ZZ/p\ZZ$
+is a multiplicity one root of $\overline{f}$, then there is a unique
+lift of $\beta$ to a root of $f$.
+\end{lemma}%nice ref -- Koblitz's book which says this first appeared in Lang's thesis in 1952. 
+For example, consider the polynomial $f(x) = x^{p-1} - 1$.  By
+Fermat's little theorem, it has $p-1$ distinct roots in $\ZZ/p\ZZ$,
+so by Lemma~\ref{lem:hensel} there are $p-1$ roots of $f(x)$
+in $\ZZ_p$, i.e., all the $p-1$st roots of unity are elements of
+$\ZZ_p$.  The \defn{Teichmuller lift} is the map that sends
+any $\beta \in (\ZZ/p\ZZ)^*$ to the unique $(p-1)$st root of unity
+in $\ZZ_p^*$ that reduces to it. 
+
+The \defn{Teichmuller character} is the homomorphism
+$$
+  \tau: \ZZ_p^* \to \ZZ_p^*
+$$
+obtained by first reducing modulo $p$, then sending an element
+to its Teichmuller lift. 
+The \defn{$1$-unit projection} character is the homomorphism
+$$
+  \langle\, \bullet\, \rangle: \ZZ_p^* \to 1 + p\ZZ_p
+$$
+given by
+$$
+   \langle x \rangle = \frac{x}{\tau(x)}.
+$$
+
+\subsection{Modular Symbol and Measures}\label{sec:modsymmeasure}
+Let 
+$$
+  f_E(z) = \sum_{n=1}^{\infty} a_n e^{2\pi i n z} \in S_2(\Gamma_0(N))
+$$
+be the modular form associated to $E$, which is a holomorphic
+function on the extended upper half plane $\h\union\Q\union\{\infty\}$.  
+Let 
+$$
+  \Omega_E = \int_{E(\RR)} \frac{dx}{2y + \ua_1 x + \ua_3} \in \RR
+$$ 
+be the real period
+associated to a minimal Weierstrass equation 
+$$
+  y^2 + \ua_1 xy + \ua_3 y = x^3 +\ua_2 x^2 + \ua_4 x + \ua_6
+$$
+for $E$.
+
+The \defn{plus modular symbol map} associated
+to the elliptic curve $E$ is the map $\QQ \to \QQ$
+given by sending $r\in \QQ$ to 
+$$
+  [r] = [r]_E=
+\frac{2 \pi i }{\Omega_E} 
+\left( \int_r^{i\infty} f_E(z) dz + \int_{-r}^{i\infty} f_E(z) dz
+\right).
+$$
+\begin{question}\label{quest:bound}
+Let $E$ vary over all elliptic curve over $\QQ$
+and $r$ over all rational numbers.  Is the set
+of denominators of the rational numbers $[r]_E$ 
+bounded?  Thoughts: For a given curve $E$, the
+denominators are bounded by the order of the image
+in $E(\Qbar)$ of the cuspidal subgroup of 
+$J_0(N)(\Qbar)$.  It is likely one can show that
+if a prime $\ell$ divides the order of the image
+of this subgroup, then $E$ admits a rational $\ell$-isogeny.
+Mazur's theorem would then prove that the set of such
+$\ell$ is bounded, which would imply a ``yes'' answer
+to this question.  Also, for any particular curve $E$,
+one can compute the cuspidal subgroup precisely, and
+hence bound the denominators of $[r]_E$.
+\end{question}
+
+Let $a_p$ be the $p$th Fourier coefficient of $E$ and note
+that the polynomial
+$$
+  x^2 - a_p x + p \con x(x-a_p) \pmod{p}
+$$
+has distinct roots because $p$ is an ordinary prime. 
+Let $\alpha$ be the root of $x^2-a_px+p$ with $|\alpha|_p = 1$,
+i.e., the lift of the root $a_p$ modulo $p$, which exists by
+Lemma~\ref{lem:hensel}.
+
+Define a \defn{measure on $\ZZ_p^*$} by 
+$$
+\mu_E(a+p^n \ZZ_p) = 
+\frac{1}{\alpha^n} \left[\frac{a}{p^n}\right] -\frac{1}{\alpha^{n+1}} \left[\frac{a}{p^{n-1}}\right].
+$$
+That $\mu_E$ is a measure follows from the formula
+for the action of Hecke operators on modular symbols
+and that $f_E$ is a Hecke eigenform.  We will not
+prove this here\footnote{Add proof or good reference.}.
+
+\subsection{The $p$-Adic $L$-function}
+Define the $p$-adic $L$-function as a function on characters
+$$
+   \chi \in \Hom(\ZZ_p^*,\CC_p^*)
+$$
+as follows.
+Send a character $\chi$ to
+$$
+  L_p(E,\chi) = \int_{\ZZ_p^*} \chi\,\, d \mu_E.
+$$
+We will later make the integral on the right more
+precise, as a limit of Riemann sums (see Section~\ref{sec:computepadicl}).
+
+
+\begin{remark}\label{rm:interp}
+For any Dirichlet character $\chi:\Z/n\Z\to\C$, let
+$L(E,\chi,s)$ be the entire $L$-function defined by
+the Dirichlet series 
+$$
+   \sum_{n=1}^{\infty} \frac{\chi(n) a_n }{n^s}.
+$$
+The standard \defn{interpolation property} of $L_p$ is that for
+any primitive
+Dirichlet character $\chi$ of conductor $p^n$ (for any $n$), we
+have
+\begin{equation}\label{eq:interp}
+L_p(E,\chi) = 
+\begin{cases}
+p^{n} \cdot g(\chi) \cdot L(E,\bar{\chi},1)/\Omega_E
+& \text{ for $\chi\neq 1$,}\\
+(1-\alpha^{-1})^2 L(E,1)/\Omega_E & \text{ if $\chi = 1$},
+\end{cases}
+\end{equation}
+where $g(\chi)$ is the Gauss sum:
+$$
+ g(\chi) =  \sum_{a \mod p^n} \chi(a) e^{\frac{2\pi i a}{p^n}}.
+$$
+Note, in particular, that $L(E,1)\neq 0$ if and only
+if $L_p(E,1)\neq 0$.
+\end{remark}
+
+
+In order to obtain a Taylor series attached
+to $L_p$, we view $L_p$ as a $p$-adic analytic function on 
+the open disk
+$$
+  D = \{u \in \C_p \, : \, |u-1|_p < 1 \},
+$$
+as follows.   We have that $\gamma=1+p$ is a topological generator 
+for $1+p\ZZ_p$.  For any $u\in D$, let $\psi_u:1+p\ZZ_p \to \CC_p^*$
+be the character given by sending $\gamma$ to $u$ and
+extending by using the group law and continuity.
+Extend $\psi_u$ to a character $\chi_u:\ZZ_p^* \to \CC_p^*$
+by letting $\chi_u(x) = \psi_u(\langle x \rangle)$.
+Finally, overloading notation, let
+$$
+  L_p(E,u) = L_p(E,\chi_u).
+$$
+
+
+\begin{theorem}\label{thm:padiclseries}
+The function $L_p(E,u)$ is a $p$-adic analytic function 
+on $D$ with  Taylor series
+about $u=1$ in the variable $T$
+$$
+   \cL_p(E,T) \in \QQ_p[[T]].
+$$
+that converges on $\{z \in \CC_p\, :\,  |z|_p < 1\}$.
+(Note that $L_p(E,u) = \cL_p(E, u-1)$.)
+\end{theorem}
+It is $\cL_p(E,T)$ that we will compute explicitly.
+
+\begin{conjecture}[Mazur, Tate, Teitelbaum]\label{conj:mtt}
+$$
+\ord_{T} \cL_p(E,T) = \rank E(\QQ).
+$$
+\end{conjecture}
+
+\begin{proposition}
+Conjecture~\ref{conj:mtt} is true if $\ord_{T}\cL_p(E,T) \leq 1$.
+\end{proposition}
+\begin{proof}[Sketch of Proof]
+By Remark~\ref{rm:interp}, we have
+$\ord_T(\cL_p(E,T)) = 0$ if and only
+if $$r_{E,\an} = \ord_{s=1} L(E,s) = 0.$$  Since 
+the BSD rank conjecture (Conjecture~\ref{conj:bsdrank}) is a theorem when
+$r_{E,\an} = 0$, Conjecture~\ref{conj:mtt}
+is also known under the hypothesis
+that $\ord_T(\cL_p(E,T)) = 0$.
+
+Recall that the BSD rank conjecture is also a theorem
+when $r_{E,\an}=1$.  It turns out that the same is true
+of Conjecture~\ref{conj:mtt} above.
+If $\ord_T(\cL_p(E,T)) = 1$, then
+a theorem of Perrin-Riou implies that
+a certain Heegner point has nonzero $p$-adic
+height, hence is non-torsion, so by the
+Gross-Zagier theorem $r_{E,\an}=1$.
+Kolyvagin's theorem then implies that
+$\rank E(\QQ)=1$. 
+\end{proof}
+
+\begin{remark}
+Mazur, Tate, and Teitelbaum also define an analogue of $\cL_p(E,T)$ for
+primes of bad multiplicative reduction and make
+a conjecture.  A prime $p$ is \defn{supersingular}
+for $E$ if $a_p \con 0 \pmod{p}$; it is a theorem
+of Elkies \cite{elkies:supersingular} that for any elliptic curve $E$ there
+are infinitely many supersingular primes $p$.
+Perrin-Riou, Pollack, Greenberg
+and others have studied $\cL_p(E,T)$ at good 
+supersingular primes.  More works needs to be done on 
+finding a  definition of $\cL_p(E,T)$ when $p$ is a prime
+of bad additive reduction for $E$.
+\end{remark}
+
+
+\begin{remark}
+A theorem of Rohrlich implies that there is some character
+as in \eqref{eq:interp} such that $L(E,\chi,1)\neq 0$,
+so $\cL_p(E,T)$ is not identically zero.  Thus $\ord_T \cL_p(T)<\infty$.
+\end{remark}
+
+\section{Computing $\cL_p(E,T)$}\label{sec:computepadicl}
+Fix notation as in Section~\ref{sec:padicldefn}.  In particular, $E$
+is an elliptic curve over $\QQ$, $p$ is an odd prime of good ordinary
+reduction for $E$, and $\alpha$ is the root of $x^2-a_px+p$ with
+$|\alpha|_p = 1$.
+
+For each integer $n\geq 1$, define a polynomial
+$$
+P_{n}(T) = 
+   \sum_{a=1}^{p-1} \left( \sum_{j=0}^{p^{n-1}-1} \mu_{E}
+      \left(\tau(a)(1+p)^j + p^n\ZZ_p\right) \cdot (1+T)^j \right) \in \QQ_p[T].
+$$
+Recall that $\tau(a)\in\ZZ_p^*$ is the Teichmuller lift of $a$.
+\begin{proposition}
+We have that the $p$-adic limit of these polynomials is the $p$-adic
+$L$-series:
+$$
+   \lim_{n\to\infty} P_n(T) = \cL_p(E, T).
+$$
+\end{proposition}
+
+
+This convergence is coefficient-by-coefficient, in the sense that
+if
+$P_{n}(T) = \sum_j a_{n,j} T^j$ and 
+$\cL_p(E,T) = \sum_j a_j T^j$, then
+$$
+\lim_{n \to \infty} a_{n,j} = a_j.
+$$ 
+We now give a proof of this convergence and in doing so obtain an
+upper bound for $|a_j - a_{n,j}|$.
+
+
+
+For any choice $\zeta_r$ of $p^r$-th root  
+of unity in $\C_p$, 
+let $\chi_r$ be the $\C_p$-valued 
+character of $\Zp^\times$ of order $p^r$ which
+factors through $1+p\Zp$ and sends $1+p$ to $\zeta_r$.
+%$g(\chi_r)$ is the Gauss sum.  
+Note that the conductor of $\chi_r$ is $p^{r+1}$.
+
+\begin{lemma}\label{lem:rval}
+Let $\zeta_r$ be a $p^r$-th root of unity with
+$1 \leq r \leq n-1$, and let $\chi_r$ be
+the corresponding character of order $p^{r+1}$,
+as above.  Then
+$$
+  P_{n}(\zeta_r-1) = \int_{\Zp^\times} \chi_r ~d\mu_{E}
+$$
+In particular, note that the right hand side does not depend on $n$.
+\end{lemma}
+\begin{proof}
+Writing $\chi=\chi_r$, we have
+\begin{align*}
+P_{n}(\zeta_r-1) 
+&= \sum_{a=1}^{p-1} \sum_{j=0}^{p^{n-1}-1} \mu_{E}\left(\tau(a)(1+p)^j + p^n\Zp\right) \cdot \zeta_r^j \\
+&= \sum_{a=1}^{p-1} \sum_{j=0}^{p^{n-1}-1} \mu_{E}\left(\tau(a)(1+p)^j + p^n\Zp\right) \cdot \chi\left((1+p)^j\right) \\
+&= \sum_{ b \in (\Z/p^n\Z)^*} \mu_{E}\left(b + p^n\Zp\right) \cdot \chi(b) \\
+&= \int_{\Zp^\times} \chi ~d\mu_{E}.
+\end{align*}
+In the second to the last equality, we use that
+$$(\Z/p^n\Z)^* \isom (\Z/p\Z)^* \cross (1+p (\Z/p^n\Z))^*$$
+to sum over lifts
+of $b\in (\Z/p^n\Z)^*$ of the form $\tau(a)(1+p)^j$, i.e., a Teichmuller lift times
+a power of $(1+p)^j$.
+In the last equality, we use that $\chi$ has conductor $p^n$,
+so is constant on the residue classes modulo $p^n$, i.e.,
+the last equality is just the Riemann sums definition of the 
+given integral.
+
+%and thus the claim follows from the standard
+%interpolation property \eqref{eq:interp} of the $p$-adic $L$-function.  
+\end{proof}
+
+%(Note that the conductor of the character $\chi_r$ is $p^{r+1}$.  This
+%is part of the indexing problem and is the reason this claim is only
+%true under the {\it strict} inequality $r<n$.)
+
+For each positive integer $n$, let $w_n(T) = (1+T)^{p^n}-1$.
+\begin{corollary}\label{cor:div}
+We have that
+$$
+w_{n-1}(T) \text{~divides~} P_{n+1}(T) - P_{n}(T).
+$$
+\end{corollary}
+\begin{proof} 
+By Lemma~\ref{lem:rval},
+$P_{n+1}(T)$ and $P_{n}(T)$ agree on 
+$\zeta_j-1$ for $0 \leq j \leq n-1$
+and any choice $\zeta_j$ of $p^j$-th root of unity,
+so their difference vanishes on every
+root of the polynomial
+$w_{n-1}(T) = (1+T)^{p^{n-1}} - 1$.
+The claimed divisibility follows, since
+$w_{n-1}(T)$ has distinct roots. 
+\end{proof}
+
+\begin{lemma}\label{lem:minval}
+Let 
+$f(T) = \sum_j b_j T^j$ and $g(T)=\sum_j c_j T^j$ 
+be in $\O[T]$ with $\O$ a finite extension of $\Zp$.  
+If $f(T)$ divides $g(T)$, then 
+$$
+  \ord_p(c_j) \geq \min_{0 \leq i \leq j} \ord_p(b_i).
+$$
+\end{lemma}
+\begin{proof}
+We have $f(T)k(T) = g(T)$.
+The lemma follows
+by using the definition of polynomial
+multiplication and the non-archimedean property of $\ord_p$
+on each coefficient of $g(T)$.
+\end{proof}
+
+As above, let $a_{n,j}$ be the $j$th coefficient of 
+the polynomial $P_n(T)$.
+Let
+$$
+   c_n = \max(0, - \min_j \ord_p(a_{n,j}))
+$$ 
+so that $p^{c_n} P_{n}(T) \in \Zp[T]$, i.e., $c_n$
+is the smallest power of $p$ that clears the denominator.
+Note that $c_n$ is an integer since $a_{n,j} \in \QQ$.
+{\em Probably if $E[p]$ is irreducible then $c_n=0$ -- see
+Question~\ref{quest:bound}.}
+Also, for any $j>0$,
+let
+$$
+  e_{n,j} = \min_{1 \leq i \leq j} \ord_p \binom{p^n}{i}.
+$$
+be the min of the valuations of the coefficients of $w_{n}(T)$,
+as in Lemma~\ref{lem:minval}.
+
+\begin{proposition}\label{prop:padicerr}
+For all $n\geq 0$, we have
+$
+  a_{n+1,0} = a_{n,0},
+$
+and for $j>0$,
+$$
+\ord_p(a_{n+1,j} - a_{n,j}) \geq  e_{n-1,j} - \max(c_{n}, c_{n+1}).
+$$
+\end{proposition}
+\begin{proof}
+Let $c = \max(c_{n},c_{n+1})$.
+The divisibility of Corollary~\ref{cor:div} implies that there
+is a polynomial $h(T)\in \Qp[T]$ with 
+$$
+w_{n-1}(T) \cdot p^{c} h(T) = p^{c} P_{n+1}(T) - p^{c}P_{n}(T)
+$$
+and thus (by Gauss' lemma) $p^{c} h(T) \in \Zp[T]$ 
+since the right hand side of the equation is integral and $w_{n-1}(T)$ 
+is a primitive polynomial.
+Applying Lemma~\ref{lem:minval} and renormalizing by $p^{c}$
+gives the result.
+\end{proof}
+
+%If $p$ is an ordinary prime, then I guess $c_n = 0$ for all $n$
+%(Christian should know this better than me -- maybe there is a problem
+%with a denominator bounded independent of $n$ when the Galois
+%representation isn't surjective.) For $p$ supersingular, $c_n =
+%\frac{n+1}{2}$.
+
+For $j$ fixed, $e_{n-1,j} - \max(c_{n+1}, c_n)$
+goes to infinity as $n$ grows since the $c_k$ are uniformly
+bounded (they are bounded by the power of $p$ that
+divides the order of the cuspidal subgroup of $E$).
+Thus, $\{ a_{n,j} \}$ is a 
+Cauchy and Proposition~\ref{prop:padicerr} implies that that
+$$
+  \ord_p(a_j - a_{n,j}) \geq  e_{n-1,j} - \max(c_{n+1},c_n).
+$$
+
+\begin{remark}
+Recall that presently there is not a single
+example where we can provably show that 
+  $\ord_{s=1} L(E,s) \geq 4$.  Amazingly $\ord_{T}
+  \cL_p(E,T)$ is ``computable in practice'' because Kato has proved,
+using his Euler system in $K_2$, that
+  $\rank E(\Q) \leq \ord_{T} \cL_p(E,T)$ by proving a divisibility
+predicted by Iwasawa Theory.  Thus computing elements of $E(\Q)$ gives
+a provable lower bound, and approximating $\cL_p(E,T)$ using Riemann
+sums gives a provable upper bound -- in practice these meet.
+\end{remark}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 

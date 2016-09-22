@@ -1,0 +1,1517 @@
+\chapter{The Birch and Swinnerton-Dyer Formula}
+
+\section{Galois Cohomology}
+Galois cohomology is the basic language used for much research into
+algebraic aspects of the BSD conjecture.  It was introduced by Lang
+and Tate in 1958 in \cite{lang-tate}.  This section contains a survey
+of the basic facts we will need in order to define Shafarevich-Tate
+groups, discuss descent, and construct Kolyvagin's cohomology classes.
+
+The best basic reference on Galois cohomology is chapters VII and X of
+Serre's {\em Local Fields} \cite{serre:localfields} or the (very
+similar!) article by Atiyah and Wall in Cassels-Frohlich
+\cite[Ch.~IV]{cassels-frohlich}.  See also the article by Gruenberg in
+\cite[Ch.~V]{cassels-frohlich} for an introduction to profinite groups such
+as $\Gal(\Qbar/\Q)$.  Since this section is only a survey, you should
+read one of the above two references in detail, if you haven't
+already.  You might also want to read Chapter 1 of
+\cite{coates-sujatha} by Coates and Sujatha, which contains an
+excellent summary of more advanced topics in Galois cohomology, and
+Serre's book {\em Galois Cohomology} \cite{serre:gc} discusses many
+general advanced topics in depth.  The original article
+\cite{lang-tate} is also well worth reading. 
+
+\subsection{Group Cohomology}
+If $G$ is a multiplicative group, the \defn{group ring} $\ZZ[G]$ is
+the ring of all finite formal sums of elements of~$G$, with
+multiplication defined using distributivity and extending linearly.
+Let $A$ be an additive group.  We say that $A$ is a \defn{$G$-module}
+if $A$ is equipped with a module structure over the group ring
+$\ZZ[G]$.
+
+Let $A^G$ be the submodule of elements of $A$ that are fixed by $G$.
+Notice that if $A\to B$ is a homomorphism of $G$-modules, then
+restriction defines a homomorphism $A^G \to B^G$, so $A\mapsto A^G$
+is a {\em functor}.  In fact, it is a {\em left-exact} functor:
+\begin{proposition}
+  If $ 0 \to A \to B \to C$ is an exact sequence of $G$ modules, then
+  $0 \to A^G \to B^G \to C^G$ is also exact.
+\end{proposition}
+
+\begin{definition}[Group Cohomology]
+The \defn{group cohomology $H^n(G,A)$} is by definition the
+{\em right derived functors} of the left exact functor $A \to A^G$.
+These are the unique, up to canonical equivalence, functors $H^n$
+such that
+\begin{itemize}
+\item The sequence
+$$
+ 0 \to A^G \to B^G \to C^G \xrightarrow{\delta} 
+H^1(G,A) \to \cdots \to H^n(G,A) \to H^n(G,B) \to H^n(G,C) \xrightarrow{\delta} H^{n+1}(G,A) \to \cdots
+$$
+is exact. 
+\item If $A$ is \defn{coinduced}, i.e., $A = \Hom(\ZZ[G], X)$ for $X$ an abelian group, then
+$$
+  \H^n(G,A) = 0 \text{ for all $n\geq 1$}.
+$$
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+For those familiar with the $\Ext$ functor, we have
+$$
+\H^n(G,A) = \Ext_{\ZZ[G]}^n(\ZZ,A).
+$$
+\end{remark}
+
+We construct $\H^n(G,A)$ explicitly as follows.
+Consider $\ZZ$ as a $G$-module, equipped with the
+trivial $G$-action.
+Consider the following free resolution of $\ZZ$.
+Let $P_i$ be the free $\ZZ$-module with basis
+the set of $i+1$ tuples
+$(g_0,\ldots, g_i) \in G^{i+1}$, and
+with $G$ acting on $P_i$ componentwise:
+$$
+   s (g_0,\ldots, g_i) = (sg_0, \ldots, sg_i).
+$$
+The homomorphism $d:P_i\to P_{i+1}$ is given
+by 
+$$
+ d(g_0,\ldots, g_i) = \sum_{j=0}^{i} (-1)^j
+       (g_0,\ldots,g_{j-1},g_{j+1},\ldots g_i),
+$$
+and $P_0\to \ZZ$ is given by sending every
+element $(g_0)$ to $1\in\Z$. 
+
+The cohomology groups $\H^i(G,A)$ are then
+the cohomology groups of the complex
+$K_i = \Hom_{\ZZ[G]}(P_i, A)$. 
+We identify an element of $K_i$
+with a function $f:G^{i+1} \to A$
+such that the condition
+$$
+  f(sg_0,\ldots, sg_i) = s f(g_0,\ldots, g_i)
+$$
+holds. 
+Notice that such an $f\in K_i$ is uniquely determined
+by the function (of $i$ inputs)
+$$
+ \vphi(g_1,\ldots, g_i) = f(1,g_1,g_1 g_2, \ldots, g_1\cdots g_i).
+$$
+
+The boundary map $d:K_i\to K_{i+1}$
+on such functions $\vphi \in K_{i}$
+is then given explicitly by the formula
+\begin{align*}
+ (d\vphi)(g_1,\ldots, g_{i+1})
+    &= g_1 \vphi(g_2,\ldots, g_{i+1}) 
+   + \sum_{j=1}^{i} (-1)^j \vphi(g_2,\ldots, g_{j} g_{j+1}, \ldots, g_{i+1})\\
+   &+ (-1)^{i+1} \vphi(g_1,\ldots, g_{i}).
+ \end{align*}
+The group of 
+\defn{$n$-cocycles} is the group of $\vphi \in K_{n}$, 
+as above are functions of $n$ variables such that
+$d\vphi = 0$.
+The subgroup of \defn{$n$-coboundaries}
+is the image of $K_{n+1}$ 
+under $d$.
+Explicitly, the cohomology group $H^n(G,A)$ is 
+the quotient of the group group of $n$-cocycles
+modulo the subgroup of $n$-coboundaries. 
+
+When $n=1$, the $1$-cocycles
+are the maps $G\to A$ such that
+$$
+ \vphi(g g') = g\vphi(g') + \vphi(g),
+$$
+and $\vphi$ is a coboundary if there exists $a\in A$
+such that $\vphi(g) = ga - a$ for all $g \in G$.
+Notice that if $G$ acts trivially on $A$, then
+$$
+  \H^1(G,A) = \Hom(G,A).
+$$
+
+\subsection{The inf-res Sequence}\label{sec:infres}
+Suppose $G$ is a group and $H$ is a normal subgroup
+of $G$, and $A$ is a $G$-module.  
+Then for any $n\geq 0$,
+there are natural homomorphisms
+$$
+  \res : \H^n(G,A) \to \H^n(H,A)
+$$
+and 
+$$
+  \inf : \H^n(G/H,A^H) \to \H^n(G,A)
+$$
+Require that we view $n$-cocycles as
+certain maps on the $n$-fold product 
+of the group.
+On cocycles, the map $\res$ is
+obtained by simply restricting
+a cocycle, which is a map $G^i\to A$,
+to a map $H^i\to A$.
+The second map $\inf$ is obtained
+by precomposing a cocycle
+$(G/H)^i\to A^H$ with the natural
+map $G^i \to (G/H)^i$.
+
+\begin{proposition}
+The \defn{inf-res sequence}
+$$
+ 0 \to \H^1(G/H,A^H) \xrightarrow{\inf} \H^1(G,A)
+ \xrightarrow{\res} \H^1(H,A)
+$$
+is exact.
+\end{proposition}
+\begin{proof}
+See \cite[\S{}VII.6]{serre:localfields}.
+\end{proof}
+
+\subsection{Galois Cohomology}
+Let $K$ be a field and $L$ a finite \defn{Galois extension} of 
+$K$, so the set of field automorphisms of $L$
+that fix $K$ equals the dimension of $L$ viewed
+as a $K$-vector space. 
+
+For any $\Gal(L/K)$-module $A$ and any $n\geq 0$, let 
+$$
+ \H^n(L/K, A) = \H^n(\Gal(L/K), A).
+$$
+If $M/L/K$ is a tower of Galois extensions of $K$
+and suppose $\Gal(M/K)$ acts on $A$.
+Then inf defines a map
+\begin{equation}\label{eqn:infgc}
+\H^n(L/K,A^L) \to \H^n(M/K,A).
+\end{equation}
+
+
+Let $K^{\sep}$ denote a separable closure of $K$ and 
+suppose $A$ is a (continuous) $\Gal(K^{\sep}/K)$-module.
+(Note -- if $K$ has characteristic $0$, then a separable
+closure is the same thing as an algebraic closure.)
+For any subfield $L\subset K^{\sep}$ that contains $K$,
+let $A(L) = A^L$. 
+Let
+$$
+  \H^n(K,A) = \varinjlim_{L/K\text{ finite Galois}} \H^n(L/K, A(L)),
+$$
+where the direct limit is with respect to the
+maps \eqref{eqn:infgc}.  We can think of this direct
+limit as simply the union of all the groups, where
+we identify two elements if they are eventually
+equal under some map \eqref{eqn:infgc}.
+
+One can prove (see \cite[Ch.~V]{cassels-frohlich}) that changing the
+choice of separable closure $K^{\sep}$ only changes $\H^n(K,A)$ by
+unique isomorphism, i.e., the construction is essentially independent
+of the choice of seperable closure.
+
+
+
+\newpage
+\section{The Shafarevich-Tate Group}\label{sec:sha}
+
+In this section we discuss Galois cohomology of elliptic
+curves, introduce the Kummmer sequence, define the
+Selmer group, the Shafarevich-Tate group and dicuss
+descent and the Mordell-Weil theorem. 
+
+\subsection{The Elliptic Curve Kummer Sequence}\label{sec:kummer}
+
+Let $E$ be an elliptic curve over a number field $K$.  Consider the
+abelian group $E(\Qbar)$ of all points on $E$ defined over a fixed
+choice $\Qbar$ of algebraic closure of $\QQ$.  Then $A$ is a module
+over $\Gal(\Qbar/K)$, and we may consider the Galois cohomology
+groups
+$$
+  \H^n(K, E),\qquad\text{for $n=0,1,2,\ldots$}
+$$
+which are of great interest in the study of elliptic curves,
+especially for $n=0,1$.
+
+If $L$ is a finite Galois extension of $K$,
+then the inf-res sequence, written in terms
+of Galois chomology, is
+$$
+0 \to \H^1(L/K, E(L)) \to \H^1(K, E) \to \H^1(L, E).
+$$
+
+For any positive integer $n$ consider the homomorphism
+$$
+ [n] : E(\Qbar) \to E(\Qbar).
+$$
+This is a surjective homomorphism of abelian groups,
+so we have an exact sequence
+$$
+  0 \to E[n] \to E \xrightarrow{[n]} E \to 0.
+$$
+The associated long exact sequence of Galois cohomology
+is
+$$
+ 0 \to E(K)[n] \to E(K) \xrightarrow{[n]} E(K)
+\to \H^1(K, E[n]) \to \H^1(K, E)\xrightarrow{[n]}
+\H^1(K, E)\to \cdots.
+$$
+An interesting way to rewrite the begining part
+of this sequence is as
+\begin{equation}\label{eqn:eckummer}
+ 0 \to E(K)/n E(K) \to \H^1(K,E[n]) \to H^1(K,E)[n]\to 0.
+\end{equation}
+The sequence \eqref{eqn:eckummer} is called the \defn{Kummer sequence}
+associated to the elliptic curve. 
+
+\subsection{The Global-to-Local Restriction Maps}
+Let $\wp$ be a prime ideal of the ring $\O_K$ of integers
+of the number field $K$, and let $K_\wp$ be the completion
+of $K$ with respect to $\wp$.   Thus $K_{\wp}$ is a finite
+extension the field $\Q_p$ of $p$-adic numbers.  
+
+More explicitly, if $K=\QQ(\alpha)$, with $\alpha$ a root of the
+irreducible polynomial $f(x)$, then the prime ideals $\wp$ correspond
+to the irreducible factors of $f(x)$ in $\ZZ_p[x]$. The fields
+$K_{\wp}$ then correspond to adjoing roots of each of these
+irreducible factors of $f(x)$ in $\Z_p[x]$.  Note that for most $p$, a
+generalization of Hensel's lemma (see Section~\ref{sec:padicprelim})
+asserts that we can factor $f(x)$ by factoring $f(x)$ modulo $p$ and
+iteratively lifting the factorization.
+
+We have a natural map $\Gal(\Qpbar/K_\wp) \to \Gal(\Qbar/K)$
+got by restriction; implicit in this is a {\em choice} of
+embedding of $\Qbar$ in $\Qpbar$ that sends $K$ into $K_v$.
+We may thus view $\Gal(\Qpbar/K_{\wp})$ as a subgroup
+of $\Gal(\Qbar/K)$. 
+
+Let $A$ be any $\Gal(\Qbar/K)$ module.  Then
+this restriction map induces a restriction map on Galois cohomology
+$$
+\res_{\wp} : \H^1(K, A) \to \H^1(K_{\wp}, A).
+$$
+Recall that in terms of $1$-cocycles this sends
+a set-theoretic map (a crossed-homomorphism)
+$f:\Gal(\Qbar/K)\to A$ to a map
+$\res_{\wp}(f):\Gal(\Qpbar/K_{\wp}) \to A$.
+
+
+Likewise there is a restriction map for each
+real Archimedian prime $v$, i.e., for each embedding 
+$K\to \RR$ we have a map
+$$
+\res_v : \H^1(K,A) \to \H^1(\R, A).
+$$
+
+\begin{exercise}
+  Let $A=E(\CC)$ be the group of points on an elliptic curve over
+  $\RR$.  Prove that $\H^1(\RR,E) = \H^1(\CC/\RR,E(\CC))$ is a group
+  of order $1$ or $2$.
+\end{exercise}
+
+\begin{exercise}
+  Prove that for any Galois moduloe $A$ and for all primes $\wp$ the
+  kernel of $\res_{\wp}$ does not depend on the choice of embedding of
+  $\Qbar$ in $\Qpbar$.  (See \cite[Ch.~V]{cassels-frohlich}).
+\end{exercise}
+
+\subsection{The Selmer Group}
+Let $E$ be an elliptic curve over a number field $K$.
+Let $v$ be either a prime $\wp$ of $K$ or a real
+Archimedian place (i.e., embedding $K\to \RR$).
+As in Section~\ref{sec:kummer} we also obtain
+a local Kummer sequence 
+$$
+  0 \to E(K_v)/n E(K_v) \to \H^1(K_v,E[n]) \to H^1(K_v,E)[n]\to 0.
+$$
+Putting these together for all $v$ we obtain a commutative
+diagram:
+\begin{equation}\label{eqn:lg1}
+\xymatrix@=1.2em{
+ 0 \ar[r]& {E(K)/n E(K)} \ar[r]\ar[d]& {\H^1(K,E[n])} \ar[r]\ar[d]
+      &  {H^1(K,E)[n]} \ar[r]\ar[d]& 0 \\
+  0 \ar[r]& {\prod_v E(K_v)/n E(K_v)} \ar[r]& {\prod_v \H^1(K_v,E[n])}
+ \ar[r]& {\prod_v H^1(K_v,E)[n]} \ar[r]& 0.
+}
+\end{equation}
+\begin{definition}
+The \defn{$n$-Selmer group} of an elliptic curve $E$ over a number
+field $K$ is
+$$
+ \Sel^{(n)}(E/K) = \ker\left(\H^1(K,E[n]) \to \prod_v \H^1(K_v,E)[n]\right).
+$$
+\end{definition}
+
+
+\subsection{The Shafarevich-Tate Group and the Mordell-Weil Theorem}
+\label{sec:shadef}
+\begin{definition}[Shafarevich-Tate Group]
+The \defn{Shafarevich-Tate group} of an elliptic curve $E$ over a number
+field $K$ is
+$$
+ \Sha(E/K) = \ker\left(\H^1(K,E) \to \prod_v \H^1(K_v,E)\right).
+$$
+\end{definition}
+
+For any positive integer $n$,
+we may thus add in a row to (\ref{eqn:lg1}):
+$$
+\xymatrix@=1.2em{
+ 0 \ar[r]& {E(K)/n E(K)} \ar[r]\ar@{=}[d] & \Sel^{(n)}(E/K)\ar[r]\ar@{^(->}[d] 
+        & \Sha(E/K)[n] \ar[r]\ar@{^(->}[d] & 0\\
+ 0 \ar[r]& {E(K)/n E(K)} \ar[r]\ar[d]& {\H^1(K,E[n])} \ar[r]\ar[d]
+      &  {H^1(K,E)[n]} \ar[r]\ar[d]& 0 \\
+  0 \ar[r]& {\prod_v E(K_v)/n E(K_v)} \ar[r]& {\prod_v \H^1(K_v,E[n])}
+ \ar[r]& {\prod_v H^1(K_v,E)[n]} \ar[r]& 0.
+}
+$$
+
+The \defn{$n$-descent sequence} for $E$ is the short exact sequence
+\begin{equation}\label{eqn:ndescent}
+  0 \to E(K)/n E(K) \to \Sel^{(n)}(E/K) \to \Sha(E/K)[n] \to 0.
+\end{equation}
+
+
+\begin{theorem}\label{thm:selmerfinite}
+ For every integer $n$ the group $\Sel^{(n)}(E/K)$ is finite. 
+\end{theorem}
+\begin{proof}[Sketch of Proof]
+Let $K(E[n])$ denote the finite Galois extension of $K$
+obtained by adjoining to $K$ all $x$ and $y$ coordinates
+of elements of $E(\Qbar)$ of order dividing $n$.
+The inf-res sequence for $K(E[n])/K$ is 
+\begin{equation}\label{eqn:infresken}
+  0 \to \H^1(K(E[n])/K, E[n]) \to \H^1(K, E[n]) \to \H^1(K(E[n]), E[n]).
+\end{equation}
+Because $\Gal(K(E[n])/K)$ and $E[n]$ are both finite groups,
+the cohomology group $\H^1(K(E[n])/K, E[n])$ is also finite.
+
+Since $\Sel^{(n)}(E/K) \subset \H^1(K,E[n])$, 
+restriction defines a map 
+\begin{equation}\label{eqn:selmerrestrict}
+  \Sel^{(n)}(E/K) \to \Sel^{(n)}(E/K[n]).
+\end{equation}
+The kernel of \eqref{eqn:selmerrestrict}
+is finite since it 
+is contained in the first term of \eqref{eqn:infresken},
+which is finite.   It thus suffices to prove
+that $\Sel^{(n)}(E/K[n])$ is finite.
+
+But 
+$$
+  \Sel^{(n)}(E/K[n]) \subset \H^1(K[n], E[n]) \isom \Hom(\Gal(\Qbar/K[n]), E[n])).
+$$
+So each element of $\Sel^{(n)}(E/K[n])$ determines (and is determined by)
+a homomorphism $\Gal(\Qbar/K[n]) \to (\Z/n\Z)^2$.
+That that the fixed field of such a homomorphism is
+a Galois extension of $K[n]$ with Galois group
+contained in $(\Z/n\Z)^2$.
+
+To complete the proof, one uses the theory of
+elliptic curves over local fields to show that
+there is a finite set $S$ of primes such that
+any such homomorphism corresponding to an element of 
+the Selmer group corresponds to an extension 
+of $K[n]$ ramified only at primes in $S$.  Then the two
+main theorems of algebraic number theory --- that
+class groups are finite and unit groups are finitely
+generated --- together imply that there are only
+finitely many such extensions of $K[n]$.
+
+% Let $L$ be the extension of $K[n]$ obtain by adjoining
+% to $K[n]$ the coordinates of all $n$-th roots of
+% elements of $E(K[n])$, i.e., for every $P \in E(K[n])$
+% adjoing coordinates of all points $Q \in E(\Qbar)$
+% such that $nQ = P$.   A study of elliptic curves over
+% local fields implies that $L$ is only ramified at a
+% finite set $S$ of primes (see \cite[Prop.~VIII.1.5]{silverman:aec}).
+% On the other hand, the Galois group of $L$ has
+% exponent $n$, since $L$ is just the compositum of all
+% splitting fields of elements of $
+
+\end{proof}
+
+
+\begin{exercise}
+  Prove the that $E[n]$ is a finite Galois extension of $K$.
+\end{exercise}
+
+
+\begin{theorem}[Mordell-Weil]
+ The group $E(\QQ)$ is finitely generated.
+\end{theorem}
+\begin{proof}
+The exact sequence \eqref{eqn:ndescent} with $n=2$
+and Theorem~\ref{thm:selmerfinite} imply that
+$E(\QQ)/ 2 E(\QQ)$ is a finite group.
+Recall Lemma~\ref{lem:allgen} which asserted
+that if $B$ is a positive real number such that
+$$
+   S = \{ P \in E(\QQ)\, : \, \hat{h}(P) \leq B \}
+$$
+contains a set of generators for $E(\QQ)/2 E(\QQ)$, then
+$S$ generates $E(\QQ)$.  Since $E(\QQ)/2 E(\QQ)$
+is finite, it makes sense to define $B$ to 
+be the maximum of the heights of arbitrary
+lifts of all the elements of $E(\QQ)/2 E(\QQ)$.
+Then the corresponding set $S$ generates
+$E(\QQ)$.  A basic fact about heights is that
+the set of points of bounded height is finite,
+i.e., $S$ is finite, so $E(\QQ)$ is finitely generated.
+\end{proof}
+
+\subsection{Some Conjectures and Theorems about the Shafarevich-Tate Group}
+\begin{conjecture}[Shafarevich-Tate]\label{conj:shafinite}
+Let $E$ be an elliptic curve over a number field $K$.
+Then the group $\Sha(E/K)$ is finite.
+\end{conjecture}
+
+\begin{theorem}[Rubin]
+If $E$ is a CM elliptic curve over $\QQ$ with $L(E,1)\neq 0$,
+then $\Sha(E/\QQ)$ is finite.  (He proved more than just this.)
+\end{theorem} 
+Thus Rubin's theorem proves that the Shafarevich-Tate group
+of the CM elliptic curve $y^2 + y = x^3 - 7$ of conductor $27$
+is finite. 
+
+\begin{theorem}[Kolyvagin et al.]
+If $E$ is an elliptic curve over $\QQ$ with $\ord_{s=1} L(E,s) \leq 1$,
+then $\Sha(E/\QQ)$ is finite. 
+\end{theorem}
+Kolyvagin's theorem is proved in a completely different way than
+Rubin's theorem.  It combines the Gross-Zagier theorem, the modularity
+theorem that there is a map $X_0(N)\to E$, a nonvanishing result about
+the special values $L(E^D,1)$ of quadratic twists of $E$, and a highly
+original explicit study of the structure of the images of certain
+points on $X_0(N)(\Qbar)$ in $E(\Qbar)$.
+
+\begin{theorem}[Cassels]\label{thm:casselspairing}
+Let $E$ be an elliptic curve over a number field $K$.
+There is an alternating pairing on $\Sha(E/K)$, which
+is nondegenerate on the quotient of 
+$\Sha(E/K)$ by its maximal divisible subgroup.  Moreover,
+if $\Sha(E/K)$ is finite then $\#\Sha(E/K)$ is a perfect
+square. 
+\end{theorem}
+
+For an abelian group $A$ and a prime $p$, let
+$A(p)$ denote the subgroup of elements of $p$ power order in $A$.
+
+The following problem remains open.  It helps illustrate
+our ignorance about Conjecture~\ref{conj:shafinite}
+in any cases beyond those mentioned above.
+\begin{problem}
+Show that there is an elliptic curve $E$ over $\QQ$
+with rank $\geq 2$ such that $\Sha(E/\QQ)(p)$ is
+finite for infinitely many primes $p$.
+\end{problem}
+
+
+\section{The Birch and Swinnerton-Dyer Formula}
+\begin{quotation}
+  ``The subject of this lecture is rather a special one.  I want to
+  describe some computations undertaken by myself and Swinnerton-Dyer
+  on EDSAC, by which we have calculated the zeta-functions of certain
+  elliptic curves.  As a result of these computations we have found an
+  analogue for an elliptic curve of the Tamagawa number of an
+  algebraic group; and conjectures have proliferated. [$\ldots$] I
+  would like to stress that though the associated theory is both
+  abstract and technically complicated, the objects about which I
+  intend to talk are usually simply defined and often machine
+  computable; experimentally we have detected certain relations
+  between different invariants, but we have been unable to approach
+  proofs of these relations, which must lie very deep.''\\
+\mbox{}\hspace{20em}--\,\,Bryan Birch
+\end{quotation}
+
+
+\begin{conjecture}[Birch and Swinnerton-Dyer]\label{conj:bsdf}
+Let $E$ be an elliptic curve over $\QQ$ of rank $r$.  
+Then $r = \ord_{s=1} L(E,s)$ and 
+\begin{equation}\label{eq:bsd}
+ \frac{L^{(r)}(E,1)}{r!} = \frac{\Omega_E \cdot \Reg(E) \cdot \#\Sha(E/\Q) \cdot \prod_{p} c_p }{\#E(\Q)_{\tor}^2}.
+\end{equation}
+\end{conjecture}
+
+
+Let 
+\begin{equation}\label{eq:bsdweq}
+  y^2 + \ua_1 xy + \ua_3 y = x^3 +\ua_2 x^2 + \ua_4 x + \ua_6
+\end{equation}
+be a minimal Weierstrass equation for $E$.
+
+Recall from Section~\ref{sec:modsymmeasure} that
+the \defn{real period} $\Omega_E$ is the integral 
+$$
+\Omega_E = \int_{E(\RR)} \frac{dx}{2y + \ua_1 x + \ua_3}.
+$$
+See \cite[\S3.7]{cremona:algs} for an explanation about
+how to use the Gauss arithmetic-geometry mean to 
+efficiently compute $\Omega_E$.
+
+To define the \defn{regulator} $\Reg(E)$ let $P_1,\ldots, P_n$
+be a basis for $E(\QQ)$ modulo torsion and recall
+the N\'eron-Tate canonical height pairing $\langle\,,\, \rangle$ from
+Section~\ref{sec:bsdimpliescomputable}.
+The real number $\Reg(E)$ is the absolute value of
+the determinant of the $n\times n$ matrix whose $(i,j)$
+entry is $\langle P_i, P_j \rangle$.   See 
+\cite[\S3.4]{cremona:algs} for a discussion of how to
+compute $\Reg(E)$.
+
+We defined the group $\Sha(E/\QQ)$ in Section~\ref{sec:shadef}.  In
+general it is not known to be finite, which led to Tate's famous
+assertion that the above conjecture ``relates the value of a function
+at a point at which it is not known to be defined\footnote{When $E$ is
+  defined over $\QQ$ it is now known that $L(E,s)$ is defined
+  overwhere.} to the order of a group that is not known to be
+finite.''  The paper \cite{bsdalg1} discusses methods for computing
+$\#\Sha(E/\QQ)$ in practice, though no general algorithm for
+computing $\#\Sha(E/\QQ)$ is known.  In fact, in general even if
+we assume truth of the BSD rank conjecture (Conjecture~\ref{conj:bsdrank})
+and assume that $\Sha(E/\QQ)$ is finite,
+there is still no known way to compute $\#\Sha(E/\QQ)$, i.e.,
+there is no analogue of Proposition~\ref{prop:bsdalgrank}.
+Given finiteness of $\Sha(E/\QQ)$ we can compute
+the $p$-part $\Sha(E/\QQ)(p)$ of $\Sha(E/\QQ)$ for any prime
+$p$, but we don't know when to stop considering new primes~$p$. 
+(Note that when $r_{E,\an}\leq 1$, Kolyvagin's work provides
+an explicit upper bound on $\#\Sha(E/\QQ)$, so 
+in that case $\Sha(E/\QQ)$ is computable.)
+
+
+
+The \defn{Tamagawa numbers} $c_p$ are $1$ for all primes $p\nmid
+\Delta_E$, where $\Delta_E$ is the discriminant of \eqref{eq:bsdweq}.
+When $p\mid \Delta_E$, the number $c_p$ is a more refined measure
+of the structure of the $E$ locally at $p$.  If $p$ is a prime
+of {\em additive reduction} (see Section~\ref{sec:complexles}), then
+one can prove that $c_p \leq 4$.   The other alternatives are
+that $p$ is a prime of split or nonsplit multiplicative reduction.
+If $p$ is a {\em nonsplit prime}, then 
+$$
+  c_p = \begin{cases} 1 & \text{ if $\ord_p(\Delta)$ is odd} \\
+                      2 & \text{ otherwise}
+\end{cases}
+$$  
+If $p$ is a prime
+of {\em split multiplicative} reduction then 
+$$
+ c_p = \ord_p(\Delta)
+$$
+can be arbitrarily large.  The above discussion completely determines
+$c_p$ except when $p$ is an additive prime -- see \cite[\S3.2]{cremona:algs}
+for a discussion of how to compute $c_p$ in general.
+
+For those that are very familiar with elliptic curves
+over local fields, 
+$$
+ c_p = [E(\QQ_p) : E^0(\QQ_p)],
+$$
+where $E^0(\QQ_p)$ is the subgroup of $E(\QQ_p)$ of points
+that have nonsingular reduction modulo $p$.
+
+For those with more geometric background, we offer the following
+conceptual definition of $c_p$.  Let $\cE$ be the \defn{N\'eron model}
+of $E$. This is the unique, up to unique isomorphism, smooth
+commutative (but not proper!) group scheme over $\ZZ$ that has
+generic fiber $E$ and satisfies the N\'eron mapping property:
+\begin{quote}
+for any smooth group scheme $X$ over $\Z$ the natural map
+$$\Hom(X, \cE) \to \Hom(X_\QQ, E)$$
+is an isomorphism.
+\end{quote}
+In particular, note that $\cE(\ZZ) \isom E(\QQ)$.
+For each prime $p$, the reduction $\cE_{\F_p}$ of the N\'eron 
+model modulo $p$ is a smooth commutative group
+scheme over $\F_p$ (smoothness is a property of morphisms
+that is closed under base extension).  Let $\cE_{\F_p}^0$
+be the identity component of the group scheme $\cE_{\F_p}$,
+i.e., the connected component of $\cE_{\F_p}^0$ that contains
+the $0$ section.  The \defn{component group} of $E$ at $p$
+is the quotient group scheme
+$$
+  \Phi_{E,p} = \cE_{\F_p} / \cE_{\F_p}^0,
+$$
+which is a finite \'etale group scheme over $\F_p$.
+Finally
+$$
+  c_p = \# \Phi_{E,p}(\F_p).
+$$
+
+
+\section{Examples: The Birch and Swinnerton-Dyer Formula}
+
+In each example below we use \sage to compute the conjectural order
+of $\Sha(E/\QQ)$ and find that it appears to be
+the square of an integer as predicted by 
+Theorem~\ref{thm:casselspairing}.
+
+\subsection{Example: A Curve of Rank 0}\label{sec:ex11a}
+Consider the elliptic curve $E$ with Cremona label 11a,
+which is one the 3 curves of smallest conductor.
+We now compute each of the quantities
+in  Conjecture~\ref{conj:bsdf}.
+First we define the curve $E$ in \sage and compute its
+rank:
+\begin{verbatim}
+sage: E = EllipticCurve('11a'); E
+Elliptic Curve defined by y^2 + y = x^3 - x^2 - 10*x - 20 
+over Rational Field
+sage: E.rank()
+0
+\end{verbatim}%link
+
+\noindent{}Next we compute the number $L(E,1)$ to double precision (as an element
+of the real double field {\tt RDF}):
+%link
+\begin{verbatim}
+sage: L = RDF(E.Lseries(1)); L
+0.253841860856
+\end{verbatim}%link
+
+\noindent{}We next compute the real period:
+%link
+\begin{verbatim}
+sage: Om = RDF(E.omega()); Om
+1.26920930428
+\end{verbatim}%link
+
+\noindent{}To compute $\prod c_p$ we factor
+the discriminant of $E$.  It turns at that only $11$
+divides the discriminant, and since the reduction
+at $11$ is split multiplicative the Tamagawa number
+is $5=\ord_{11}(\Delta_E)$. 
+%link
+\begin{verbatim}
+sage: factor(discriminant(E))
+-1 * 11^5
+sage: c11 = E.tamagawa_number(11); c11
+5
+\end{verbatim}%link
+
+\noindent{}Next we compute the regulator, which is $1$ since $E$
+rank $0$.
+%link
+\begin{verbatim}
+sage: Reg = RDF(E.regulator()); Reg
+1.0
+\end{verbatim}%link
+
+\noindent{}The torsion subgroup has order $5$.
+%link
+\begin{verbatim}
+sage: T = E.torsion_order(); T
+5
+\end{verbatim}%link
+
+\noindent{}Putting everything together in \eqref{eq:bsd} and
+solving for the conjectural order of $\Sha(E/\QQ)$, we
+see that Conjecture~\ref{conj:bsdf} for $E$ is equivalent
+to the assertion that $\Sha(E/\QQ)$ has order $1$.
+%link
+\begin{verbatim}
+sage: Sha_conj = L * T^2 / (Om * Reg * c11); Sha_conj
+1.0
+\end{verbatim}
+
+\subsection{Example: A Rank 0 curve with nontrivial Sha}
+Consider the curve $E$ with label 681b.  This curve
+has rank $0$, and we compute the conjectural order of $\#\Sha(E/\QQ)$
+as in the previous section:
+\begin{verbatim}
+sage: E = EllipticCurve('681b'); E
+Elliptic Curve defined by y^2 + x*y  = x^3 + x^2 - 1154*x - 15345 
+over Rational Field
+sage: E.rank()
+0
+sage: L = RDF(E.Lseries(1)); L
+1.84481520613
+sage: Om = RDF(E.omega()); Om
+0.81991786939
+\end{verbatim}%link
+
+\noindent{}There are two primes of bad reduction this time.
+%link
+\begin{verbatim}
+sage: factor(681)
+3 * 227
+sage: factor(discriminant(E))
+3^10 * 227^2
+sage: c3 = E.tamagawa_number(3); c227 = E.tamagawa_number(227)
+sage: c3, c227
+(2, 2)
+sage: Reg = RDF(E.regulator()); Reg
+1.0
+sage: T = E.torsion_order(); T
+4
+\end{verbatim}%link
+
+\noindent{}In this case it turns out that
+$\#\Sha(E/\QQ)$ is conjecturally $9$.
+%link
+\begin{verbatim}
+sage: Sha_conj = L * T^2 / (Om * Reg * c3*c227); Sha_conj
+9.0
+\end{verbatim}
+
+\subsection{Example: A Curve of Rank 1}\label{sec:ex37a}
+Let $E$ be the elliptic curve with label 37a,
+which is
+the curve of rank $1$ with smallest conductor. 
+We define $E$ and compute its rank, which is $1$.
+\begin{verbatim}
+sage: E = EllipticCurve('37a'); E
+Elliptic Curve defined by y^2 + y = x^3 - x over 
+Rational Field
+sage: E.rank()
+1
+\end{verbatim}%link
+
+\par\noindent{}We next compute the value $L'(E,1)$. The
+corresponding function in \sage takes a bound on the number
+of terms of the $L$-series to use, and returns an approximate
+to $L'(E,1)$ along with a bound on the error (coming from
+the tail end of the series). 
+%link
+\begin{verbatim}
+sage: L, error = E.Lseries_deriv_at1(200); L, error
+(0.305999773834879, 2.10219814818300e-90)
+sage: L = RDF(L); L
+0.305999773835
+\end{verbatim}%link
+
+\par\noindent{}We compute $\Omega_E$ and the Tamagawa number,
+regulator, and torsion as above.
+%link
+\begin{verbatim}
+sage: Om = RDF(E.omega()); Om
+5.98691729246
+sage: factor(discriminant(E))
+37
+sage: c37 = 1
+sage: Reg = RDF(E.regulator()); Reg
+0.05111140824
+sage: T = E.torsion_order(); T
+1
+\end{verbatim}%link
+
+\par\noindent{}Finally, we solve and find that
+the conjectural order of $\Sha(E/\Q)$ is $1$.
+%link
+\begin{verbatim}
+sage: Sha_conj = L * T^2 / (Om * Reg * c37); Sha_conj
+1.0
+\end{verbatim}
+
+\subsection{Example: A curve of rank $2$}
+Let $E$ be the elliptic curve 389a of rank $2$, which is
+the curve of rank $2$ with smallest conductor. 
+\begin{verbatim}
+sage: E = EllipticCurve('389a'); E
+Elliptic Curve defined by y^2 + y = x^3 + x^2 - 2*x
+over Rational Field
+sage: E.rank()
+2
+\end{verbatim}%link
+
+\noindent{}Because the curve has rank $2$, we use Dokchitser's
+$L$-function package to approximate $L^{(2)}(E,1)$
+to high precision:
+%link
+\begin{verbatim}
+sage: Lser = E.Lseries_dokchitser()
+sage: L = RDF(abs(Lser.derivative(1,2))); L
+1.51863300058
+\end{verbatim}%link
+
+\noindent{}We compute the regulator, Tamagawa numbers, and torsion
+as usual:
+%link
+\begin{verbatim}
+sage: Om = RDF(E.omega()); Om
+4.98042512171
+sage: factor(discriminant(E))
+389
+sage: c389 = 1
+sage: Reg = RDF(E.regulator()); Reg
+0.152460177943
+sage: T = E.torsion_order(); T
+1
+\end{verbatim}%link
+
+Finally we solve for the conjectural order of $\#\Sha(E/\QQ)$.
+%link
+\begin{verbatim}
+sage: Sha_conj = (L/2) * T^2 / (Om * Reg * c389)
+sage: Sha_conj
+1.0
+\end{verbatim}
+
+We pause to emphasize that just getting something that looks
+like an integer by computing
+\begin{equation}\label{eq:sha389}
+  \frac{L^{(r)}(E,1)}{r!} \cdot \#E(\QQ)_{\tor}^2 / (\Omega_E \cdot \Reg(E) \cdot \prod c_p)
+\end{equation}
+is already excellent evidence for Conjecture~\ref{conj:bsdf}.
+There is also a subtle and deep open problem here:
+\begin{openproblem}
+Let $E$ be the elliptic curve 389a above. Prove
+that the quantity \eqref{eq:sha389} is a rational number. 
+\end{openproblem}
+For curves $E$ of analytic rank $0$ it is easy to prove
+using modular symbols that the conjectural order of $\Sha(E/\QQ)$
+is a rational number.  For curves with analytic rank $1$, this
+rationality  follows from the very deep Gross-Zagier theorem.
+For curves of analytic rank $\geq 2$ there is not a single 
+example in which the conjectural order of $\Sha(E/\QQ)$
+is known to be a rational number.
+
+
+\subsection{Example: A Rank 3 curve}
+The curve $E$ with label 5077a has rank $3$.  This 
+is the curve with smallest conductor and rank $3$.
+\begin{verbatim}
+sage: E = EllipticCurve('5077a'); E
+Elliptic Curve defined by y^2 + y = x^3 - 7*x + 6 
+over Rational Field
+sage: E.rank()
+3
+\end{verbatim}%link
+
+\noindent{}We compute $L(E,s)$ using Dokchitser's algorithm.  Note
+that the order of vanishing appears to be $3$.
+%link
+\begin{verbatim}
+sage: E.root_number()
+-1
+sage: Lser = E.Lseries_dokchitser()
+sage: Lser.derivative(1,1)
+-5.63436295355925e-22
+sage: Lser.derivative(1,2)
+2.08600476044634e-21
+sage: L = RDF(abs(Lser.derivative(1,3))); L
+10.3910994007
+\end{verbatim}%link
+
+\noindent{}That the order of vanishing is really $3$ follows from the
+Gross-Zagier theorem, which asserts that $L'(E,1)$ is a nonzero
+multiple of the N\'eron-Tate canonical height of a certain point on
+$E$ called a Heegner point.  One can explicitly construct this
+point\footnote{This is not yet implemented in \sage; if it were, there
+  would be an example right here.} on $E$ and find that it is torsion,
+hence has height $0$, so $L'(E,1)=0$. That $L''(E,1)=0$ then follows
+from the functional equation (see Section~\ref{sec:complexles}).
+Finally we compute the other BSD invariants:
+%link
+\begin{verbatim}
+sage: Om = RDF(E.omega()); Om
+4.15168798309
+sage: factor(discriminant(E))
+5077
+sage: c5077 = 1
+sage: Reg = RDF(E.regulator()); Reg
+0.417143558758
+sage: T = E.torsion_order(); T
+1
+\end{verbatim}%link
+
+\noindent{}Putting everything together we see that the
+conjectural order of $\Sha(E/\QQ)$ is $1$.
+%link
+\begin{verbatim}
+sage: Sha_conj = (L/6) * T^2 / (Om * Reg * c5077)
+sage: Sha_conj
+1.0
+\end{verbatim}
+\noindent{}Note that just as was the case with the
+curve 389a above, we do not know that the above
+conjectural order of $\Sha(E/\QQ)$ is a
+rational number, since there are no know theoretical
+results that relate any of the three real numbers
+$L^{(3)}(E,1)$, $\Reg(E/\QQ)$, and $\Omega_{E/\QQ}$. 
+
+\subsection{Example: A Rank 4 curve}
+Let $E$ be the curve of rank $4$ with label 234446b.  It is 
+likely that this is the curve with smallest conductor and rank $4$ (a
+big calculation of the author et al. shows that there are no rank $4$
+curves with smaller {\em prime} conductor).
+
+\begin{verbatim}
+sage: E = EllipticCurve([1, -1, 0, -79, 289]); E
+Elliptic Curve defined by y^2 + x*y  = x^3 - x^2 - 79*x + 289 
+over Rational Field
+sage: E.rank()
+4
+\end{verbatim}%link
+
+We next compute $L(E,1)$, $L'(E,1)$, $L^{(2)}(E,1)$, $L^{(3)}(E,1)$,
+and $L^{(4)}(E,1)$.  All these special values {\em look} like they are
+$0$, except for $L^{(4)}(E,1)$ which is about $214$, hence clearly
+nonzero.  One can prove that $L(E,1)=0$ (e.g., using denominator
+bounds coming from modular symbols), hence since the root number is
+$+1$, we have either $r_{E,\an} = 2$ or $r_{E,\an}=4$, and of course
+suspect (but cannot prove yet) that $r_{E,\an}=4$.
+\noindent{}
+%link
+\begin{verbatim}
+sage: E.root_number()
+1
+sage: Lser = E.Lseries_dokchitser()
+sage: Lser(1)
+1.43930352980778e-18
+sage: Lser.derivative(1,1)
+-4.59277879927938e-24
+sage: Lser.derivative(1,2)
+-8.85707917856308e-22
+sage: Lser.derivative(1,3)
+1.01437455701212e-20
+sage: L = RDF(abs(Lser.derivative(1,4))); L
+214.652337502
+\end{verbatim}%link
+
+\noindent{}As above, we compute the other BSD invariants of $E$.
+%link
+\begin{verbatim}
+sage: Om = RDF(E.omega()); Om
+2.97267184726
+sage: factor(discriminant(E))
+2^2 * 117223
+sage: c2 = 2
+sage: c117223 = 1
+sage: Reg = RDF(E.regulator()); Reg
+1.50434488828
+sage: T = E.torsion_order(); T
+1
+\end{verbatim}%link
+
+Finally, putting everything together, we see that the conjectural
+order of $\Sha(E/\QQ)$ is 1.
+\noindent{}
+%link
+\begin{verbatim}
+sage: Sha_conj = (L/24) * T^2 / (Om * Reg * c2 * c117223)
+sage: Sha_conj
+1.0
+\end{verbatim}%link
+
+Again we emphasize that we do not even know that 
+the conjectural order computed above is a rational number. 
+
+It seems almost a miracle that $L^{(4)}(E,1) = 214.65\ldots$,
+$\Omega_E = 2.97\ldots$, and $\Reg(E) = 1.50\ldots$ have
+anything to do with each other, but indeed they do:
+\noindent{}
+%link
+\begin{verbatim}
+sage: L/24, 2*Om*Reg
+(8.9438473959, 8.9438473959)
+\end{verbatim}
+That these two numbers are the same to several decimal
+places is a fact, independent of any conjectures.
+
+\newpage
+\section{The $p$-adic BSD Conjectural Formula}
+Let $E$ be an elliptic curve over $\QQ$ and let $p$
+be a prime of good ordinary reduction for $E$.
+
+In Chapter~\ref{ch:rank} (see Theorem~\ref{thm:padiclseries}) 
+we defined a $p$-adic $L$-series
+$$
+   \cL_p(E,T) \in \QQ_p[[T]].
+$$
+Conjecture~\ref{conj:mtt} asserted that
+$
+\ord_{T} \cL_p(E,T) = \rank E(\QQ).
+$
+Just as is the cases for $L(E,s)$, there is a conjectural
+formula for the leading coefficient of the power series
+$\cL_p(E,T)$.   This formula is due to Mazur, Tate,
+and Teitelbaum \cite{mtt}.
+
+First, suppose $\ord_T \cL_p(E,T) = 0$, i.e.,
+$\cL_p(E,0) \neq 0$.  Recall that the interpolation property
+\eqref{eq:interp} for $\cL_p(E,T)$ implies that
+$$
+  \cL_p(E,0) = \eps_p \cdot L(E,1)/\Omega_E,
+$$
+where 
+\begin{equation}\label{eq:epsp}
+\eps_p = (1-\alpha^{-1})^2,
+\end{equation}
+and $\alpha\in \ZZ_p$ is the unit root of $x^2 - a_p x + p=0$.
+Thus the usual BSD conjecture predicts that if
+the rank is $1$, then
+\begin{equation}\label{eq:pbsd0}
+  \cL_p(E,0) = \eps_p \cdot \frac{\prod_\ell c_\ell \cdot \#\Sha(E/\Q) \cdot \Reg(E)}{\#E(\Q)_{\tor}^2}
+\end{equation}
+
+Notice in \eqref{eq:pbsd0} that since $E(\QQ)$ has rank $0$, we have
+$\Reg(E) = 1$, so there is no issue with the left hand side
+being a $p$-adic number and the right hand side not making sense.
+It would be natural to try to generalize \eqref{eq:pbsd0} to higher order
+of vanishing as follows.  Let $\cL_p^*(E,0)$ denote the leading
+coefficient of the power series $\cL_p(E,T)$.  Then 
+\begin{equation}
+  \cL_p^*(E,0) ``=\text{''} \eps_p \cdot \frac{\prod_\ell c_\ell \cdot \#\Sha(E/\Q) \cdot \Reg(E)}{\#E(\Q)_{\tor}^2}\qquad\text{(nonsense!!).}
+\end{equation}
+Unfortunately \eqref{eq:pbsd0} is total nonsense when the rank
+is bigger than $0$.  The problem is that $\Reg(E)\in\R$ is a real number,
+whereas $\eps_p$ and $\cL_p^*(E,0)$ are both $p$-adic numbers. 
+
+The key {\em new idea} needed to make 
+a conjecture is to replace the real-number regulator
+$\Reg(E)$ with a $p$-adic regulator $\Reg_p(E) \in \Q_p$. 
+This new regulator is defined in a way analogous to the classical
+regulator, but where many classical complex analytic objects
+are replaced by $p$-adic analogues.  Moreover, the $p$-adic regulator
+was, until recently (see \cite{mazur-tate-stein}), much 
+more difficult to compute than the classical real regulator. 
+We will define the $p$-adic number $\Reg_p(E) \in \Q_p$
+in the next section.  
+
+\begin{conjecture}[Mazur, Tate, and Teitelbaum]\label{conj:mttformula}
+
+  Let $E$ be an elliptic curve over $\QQ$ and let $p$ be a prime of
+  good ordinary reduction for $E$.  Then the rank of $E$ equals 
+  $\ord_T(\cL_p(E,T))$ and 
+\begin{equation}
+  \cL_p^*(E,0) = \eps_p \cdot \frac{\prod_\ell c_\ell \cdot \#\Sha(E/\Q) \cdot \Reg_p(E)}{\#E(\Q)_{\tor}^2},
+\end{equation}
+where $\eps_p$ is as in \eqref{eq:epsp}, and the $p$-adic regulator
+$\Reg_p(E)\in\Q_p$ will be defined below.
+\end{conjecture}
+\begin{remark}
+  There are analogous conjectures in many other cases, e.g., good
+  supersingular, bad multiplicative, etc.  See \cite{shark} for more details.
+\end{remark}
+
+\subsection{Example: A Curve of Rank $2$}
+We only consider primes $p$ of good ordinary reduction for a given
+curve $E$ in this section.  If $E$ is an elliptic curve with analytic
+rank $0$, then the $p$-adic and classical BSD conjecture are the same,
+so there is nothing new to illustrate.  We will thus consider only
+curves of rank $\geq 1$ in this section.
+
+We consider the elliptic curve 446d1 of rank $2$ at the prime
+$p=5$. 
+\begin{verbatim}
+sage: E = EllipticCurve('446d1'); p = 5; E
+Elliptic Curve defined by y^2 + x*y  = x^3 - x^2 - 4*x + 4 
+over Rational Field
+\end{verbatim}%link
+
+\noindent{}Next we verify that the rank is $2$, that $p$
+is a good ordinary prime, and that there are $10$ points
+on $E$ modulo $p$ (so $E$ is {\em ananomolous at $p$}, i.e.,
+$p\mid \#E(\FF_p)$).
+%link
+\begin{verbatim}
+sage: E.rank()
+2
+sage: E.is_ordinary(p)
+True
+sage: E.Np(p)
+10
+\end{verbatim}%link
+
+\noindent{}Next we compute the $p$-adic $L$-series of $E$ at $p$.
+We add $O(T^7)$ so that the displayed series doesn't take several lines.
+% note -- make the precision bigger than 4 at some point!
+%link
+\begin{verbatim}
+sage: Lp  = E.padic_lseries(p)
+sage: LpT = Lp.series(4)
+sage: LpT = LpT.add_bigoh(7); LpT
+(5 + 5^2 + O(5^3))*T^2 + (2*5 + 3*5^2 + O(5^3))*T^3 
+          + (4*5^2 + O(5^3))*T^4 + (4*5 + O(5^2))*T^5 
+          + (1 + 2*5 + O(5^3))*T^6 + O(T^7)
+\end{verbatim}%link
+
+\noindent{}We compute the $p$-adic modular form $E_2$ evaluated
+on our elliptic curve with differential $\omega$ to precision $O(p^{8})$.
+This is the key difficult input to the computation of the $p$-adic
+regulator $\Reg_p(E)$.
+%link
+\begin{verbatim}
+sage: E.padic_E2(p, prec=8)
+3*5 + 4*5^2 + 5^3 + 5^4 + 5^5 + 2*5^6 + 4*5^7 + O(5^8)
+\end{verbatim}%link
+
+\noindent{}We compute the normalized $p$-adic regulator,
+normalized to the choice of $1+p$ as a topological
+generator of $1+p\,\mathbb{Z}_p$.
+% note -- this normalization will be automatic at some point soon.
+%link
+\begin{verbatim}
+sage: Regp = E.padic_regulator(p, 10)
+sage: R = Regp.parent()
+sage: kg = log(R(1+p))
+sage: reg = Regp * p^2 / log(R(1+p))^2
+sage: reg*kg^2
+2*5 + 2*5^2 + 5^4 + 4*5^5 + 2*5^7 + O(5^8)
+\end{verbatim}%link
+
+\noindent{}We compute the Tamagawa numbers and torsion subgroup.
+%link
+\begin{verbatim}
+sage: E.tamagawa_numbers()
+[2, 1]
+sage: E.torsion_order()
+1
+\end{verbatim}%link
+
+\noindent{}We compute $\cL_p^*(E,0)$, which is the leading term of 
+the $p$-adic $L$-function.  It is not a 
+unit, so we call the prime $p$ an {\em irregular} prime.
+%link
+\begin{verbatim}
+sage: Lpstar = LpT[2]; Lpstar
+5 + 5^2 + O(5^3)
+\end{verbatim}%link
+
+\noindent{}Finally, putting everything together
+we compute the conjectural $p$-adic order of $\#\Sha(E/\QQ)$.
+In particular, we see that conjecturally 
+$\#\Sha(E/\QQ)(5)$ is trivial.
+%link
+\begin{verbatim}
+sage: eps = (1-1/Lp.alpha(20))^2
+sage: Lpstar / (eps*reg*(2*1)) * (1)^2
+1 + O(5^2)
+\end{verbatim}
+
+\subsection{The $p$-adic Regulator}
+Fix an elliptic curve $E$ defined over $\QQ$ and a prime $p$ of good
+ordinary reduction for $E$.  In this section we define the $p$-adic
+regulator $\Reg_p(E)$.  See \cite{mtt}, \cite{mazur-tate-stein} and
+\cite{shark} and the references listed there for a more general
+discussion of $p$-adic heights, especially for bad or supersingular
+primes, and for elliptic curves over number fields.  See also
+forthcoming work of David Harvey for highly optimized computation
+of $p$-adic regulators. 
+
+The $p$-adic logarithm $\log_p:\QQ_p^* \to (\QQ_p,+)$ is
+the unique group homomorphism with $\log_p(p)=0$ that extends the
+homomorphism $\log_p:1+p\ZZ_p \to \QQ_p$ defined by the usual power
+series of $\log(x)$ about $1$.  Explicitly, if $x\in\QQ_p^*$, then
+$$\log_p(x) = \frac{1}{p-1}\cdot \log_p(u^{p-1}),$$
+where $u = p^{-\ord_p(x)} \cdot x$ is the unit part of~$x$, and the
+usual series for $\log$ converges at $u^{p-1}$.
+
+\begin{example}
+For example, in \sage we compute the logs of a couple of
+non-unit elements of $\QQ_5$ as follows:
+\begin{verbatim}
+sage: K = Qp(5,8); K
+5-adic Field with capped relative precision 8
+sage: a = K(-5^2*17); a
+3*5^2 + 5^3 + 4*5^4 + 4*5^5 + 4*5^6 + 4*5^7 + 4*5^8 + 4*5^9 + O(5^10)
+sage: u = a.unit_part()
+3 + 5 + 4*5^2 + 4*5^3 + 4*5^4 + 4*5^5 + 4*5^6 + 4*5^7 + O(5^8)
+sage: b = K(1235/5); b
+2 + 4*5 + 4*5^2 + 5^3 + O(5^8)
+sage: log(a)
+5 + 3*5^2 + 3*5^3 + 4*5^4 + 4*5^5 + 5^6 + O(5^8)
+sage: log(a*b) - log(a) - log(b)
+O(5^8)
+\end{verbatim}%link
+
+\noindent{}Note that we can recover $b$:
+%link
+\begin{verbatim}
+sage: c = a^b; c
+2*5^494 + 4*5^496 + 2*5^497 + 5^499 + 3*5^500 + 5^501 + O(5^502)
+sage: log(c)/log(a)
+2 + 4*5 + 4*5^2 + 5^3 + O(5^7)
+\end{verbatim}
+\end{example}
+
+
+Let $\cE$ denote the N\'eron model of~$E$ over~$\Z$.  Let $P\in E(\Q)$
+be a non-torsion point that reduces to $0\in E(\F_p)$ and to the
+connected component of $\cE_{\F_\ell}$ at all primes $\ell$ of bad
+reduction for~$E$.  For example, given any point $Q\in E(\Q)$
+one can construct such a $P$ by multiplying it by the least common
+multiple of the Tamagawa numbers of $E$.
+
+\begin{exercise}
+Show that any
+nonzero point $P=(x(P),y(P)) \in E(\Q)$ can be written uniquely in the
+form $(a/d^2, b/d^3)$, where $a,b,d \in \Z$, $\gcd(a,d)=\gcd(b,d)=1$,
+and $d>0$.
+(Hint: Use that $\Z$ is a unique factorization domain.)
+\end{exercise}
+The function $d(P)$ assigns to $P$ this square root~$d$ of
+the denominator of the $x$-coordinate $x(P)$.
+
+\begin{example}
+We compute a point on a curve, and observe that the denominator
+of the $x$ coordinate is a perfect square. 
+\begin{verbatim}
+sage: E = EllipticCurve('446d1')
+sage: P = 3*E.gen(0); P
+(32/49 : -510/343 : 1)
+\end{verbatim}
+\end{example}
+
+Let
+\begin{equation}\label{eqn:xt}
+  x(t) = \frac{1}{t^2} + \cdots \in \Z_p((t))
+\end{equation}
+be the formal power series that expresses $x$ in terms of the local
+parameter $t=-x/y$ at infinity.  Similarly, let $y(t) = -x(t)/t$
+be the corresponding series for $y$.
+If we do the change of variables $t=-x/y$ and $w=-1/y$,
+so $x=t/w$ and $y=-1/w$, then the Weierstrass equation
+for $E$ becomes
+$$
+s  =  {t}^{3}  + {{a_{1}  s}  t} +
+{{a_{2}  w}  {t}^{2} } +
+{a_{3}  {w}^{2} }
++ {{a_{4}  {w}^{2} }  t}
++ {a_{6}  {w}^{3} } = F(w,t).
+$$
+Repeatedly substituting this equation into itself
+recursively yields a power series expansion for
+$w = -1/y$ in terms of $t$, hence for both $x$ and $y$.
+
+\begin{remark}
+The \defn{formal group} of $E$ is a power
+series
+$$F(t_1, t_2) \in R = \ZZ[a_1,\ldots, a_6][[t_1, t_2]].$$
+defined as follows.
+Since $x(t)$ and $y(t)$ satisfy the equation of $E$,
+the 
+points $P_1 = (x(t_1),y(t_1))$ and
+$P_2 = (x(t_2),y(t_2))$
+are in $E(R)$.  As explained explicitly in
+\cite[\S{}IV.1]{silverman:aec}, their sum is
+$$Q = P_1 + P_2 = (x(F), y(F)) \in E(R)$$
+for some $F = F(t_1, t_2) \in R$.
+\end{remark}
+ 
+
+\begin{example}
+We compute the above change of variables in SAGE:
+\begin{verbatim}
+sage: var('a1 a2 a3 a4 a6')
+sage: E = EllipticCurve([a1,a2,a3,a4,a6]); E
+Elliptic Curve defined by
+     y^2 + a1*x*y + a3*y = x^3 + a2*x^2 + a4*x + a6
+over Symbolic Ring
+sage: eqn = SR(E); eqn
+(y^2 + a1*x*y + a3*y) == (x^3 + a2*x^2 + a4*x + a6)
+sage: F = eqn.lhs() - eqn.rhs(); F
+y^2 + a1*x*y + a3*y - x^3 - a2*x^2 - a4*x - a6
+sage: G = w^3*F(x=t/s, y=-1/w); G.expand()
+-t^3 - a2*w*t^2 - a4*w^2*t - a1*w*t - a6*w^3 - a3*w^2 + w
+\end{verbatim}
+\end{example}
+
+\begin{example}
+We use \sage to compute the formal power series $x(t)$ and $y(t)$
+for the rank $1$ elliptic curve 37a.
+\begin{verbatim}
+sage: E = EllipticCurve('37a'); E
+Elliptic Curve defined by y^2 + y = x^3 - x over Rational Field
+sage: F = E.formal_group(); F
+Formal Group associated to the Elliptic Curve defined by
+y^2 + y = x^3 - x over Rational Field
+sage: x = F.x(prec=8); x
+t^-2 - t + t^2 - t^4 + 2*t^5 - t^6 - 2*t^7 + O(t^8)
+sage: y = F.y(prec=8); y
+-t^-3 + 1 - t + t^3 - 2*t^4 + t^5 + 2*t^6 - 6*t^7 + O(t^8)
+\end{verbatim}%link
+
+\noindent{}Notice that the power series satisfy the equation of the curve.
+%link
+\begin{verbatim}
+sage: y^2 + y == x^3 - x
+True
+\end{verbatim}
+%link
+\end{example}
+
+Recall that $\omega_E = \frac{dx}{2y + \ua_1 x + \ua_3}$ is the
+differential on a fixed choice of Weierstrass equation for
+$E$. Let
+$$
+ \omega(t) = \frac{dx}{2y + \ua_1 x + \ua_3} \in \QQ((t)) dt
+$$
+be the formal invariant holomorphic differential on $E$.
+\begin{example}
+Continuing the above example, we compute the formal
+differential on $E$:
+%link
+\begin{verbatim}
+sage: F.differential(prec=8)
+1 + 2*t^3 - 2*t^4 + 6*t^6 - 12*t^7 + O(t^8)
+\end{verbatim}%link
+
+\noindent{}We can also compute $\omega(t)$ directly from the definition:
+%link
+\begin{verbatim}
+sage: x.derivative()/(2*y+1)
+1 + 2*t^3 - 2*t^4 + 6*t^6 - 12*t^7 + 6*t^8 + 20*t^9 + O(t^10)
+\end{verbatim}
+\end{example}
+
+The following theorem, which is proved in \cite{mazur-tate:sigma},
+uniquely determines a power series~$\sigma\in t\ZZ_p[[t]]$ and constant
+$c\in\ZZ_p$.
+\begin{theorem}[Mazur-Tate]\label{thm:uniqde}
+  There is exactly one odd function $\sigma(t) = t + \cdots \in
+  t\Z_p[[t]]$ and constant $c\in \Z_p$ that together satisfy the
+  differential equation
+\begin{equation}\label{eqn:sigmadef}
+x(t)
++ c = -\frac{d}{\omega}\left( \frac{1}{\sigma}
+  \frac{d\sigma}{\omega}\right),
+\end{equation}
+where $\omega$ is the invariant differential
+$dx/(2y+a_1x+a_3)$ associated with our chosen Weierstrass equation
+for $E$.
+\end{theorem}
+
+The above theorem produces a (very inefficient) algorithm to compute
+$c$ and $\sigma(t)$.  Just view $c$ as a formal indeterminate and
+compute $\sigma(t) \in \Q[c][[t]]$, then obtain constraints on $c$
+using that the coefficients of $\sigma$ must be in $\Z_p$.  These
+determine $c$ to some precision, which increases as we compute
+$\sigma(t)$ to higher precision.  Until recently this was the only
+known way to compute $c$ and $\sigma(t)$ -- fortunately the method
+of \cite{mazur-tate-stein} is much faster in general.
+
+\begin{definition}[Canonical $p$-adic Height]
+Let $E$ be an elliptic curve over $\QQ$ with good ordinary reduction
+at the odd prime $p$.  Let $\log_p$, $d$, and $\sigma(t)$ be
+as above and suppose $P \in E(\QQ)$ and that $nP$ is a nonzero multiple
+of $P$ such that $nP$ reduces to the identity component of the N\'eron
+model of $E$ at each prime of bad reduction.  Then the
+\defn{$p$-adic canonical height} of $P$ is 
+$$
+h_p(P) = \frac{1}{n^2}\cdot \frac{1}{p} \cdot \log_p\left(\frac{\sigma(P)}{d(P)}\right).
+$$
+\end{definition}
+
+\begin{definition}[$p$-adic Regulator]
+The \defn{$p$-adic regulator} of $E$ is the discriminant (well defined up to sign)
+of the bilinear $\QQ_p$-valued pairing
+$$
+  (P,Q)_p = h_p(P) + h_p(Q) - h_p(P+Q).
+$$
+\end{definition}
+
+\begin{conjecture}[Schneider]
+The $p$-adic regulator $\Reg_p(E)$ is nonzero.
+\end{conjecture}
+
+\begin{theorem}[Kato, Schneider, et al.]
+Let $E$ be an elliptic curve over $\QQ$ with good ordinary reduction
+at the odd prime $p$ and assume that the $p$-adic
+Galois representation $\rho_{E,p}$ is surjective.
+If
+$$\ord_T(\cL_p(E,T)) \leq  \rank E(\Q),$$
+then $\#\Sha(E/\Q)(p)$ is finite.
+Moreover, if $\Reg_p(E)$ is nonzero, then
+$$
+\ord_p(\#\Sha(E/\Q)(p)) \leq \ord_p\left(\frac{\cL_p^*(E,0)}{\prod c_\ell \cdot \Reg_p(E)}\right).
+$$
+\end{theorem}
+
+
+
+
+% \newpage
+% \section{The $p$-adic Regulator}
+% Let $E$ be an elliptic curve over $\QQ$ and let $p$ be an odd prime of
+% good ordinary reduction for $E$.  We define the $p$-adic regulator
+% using a $p$-adic analogue of the height pairing.
+ 
+% The $p$-adic de Rham cohomology $D_p(E) = \H^1_{\dR}(E/\Q)\tensor\Q_p$ of $E$
+% has basis $\omega_E, \eta_E = x\omega_E$, where $\omega_E$ is the 
+% minimal differential on a fixed choice of Weierstrass equation for $E$.
+% Let $\nu$ be an element of $D_p(E)$.
+% We will define a $p$-adic height function 
+% $h_\nu\colon E(\QQ)\rTo \QQ_p$ which depends linearly on the
+% vector $\nu$. Hence it is sufficient to define it on the basis
+% $\omega=\omega_E$ and $\eta=\eta_E$.
+ 
+% If $\nu=\omega$, then we define 
+%  \begin{equation*}
+%   h_\omega(P)=-\log_E(P)^2,
+%  \end{equation*}
+% where $\log_E$ is the linear extension of the $p$-adic elliptic 
+% logarithm $\log_{\hat E}\colon \hat E(p\ZZ_p)\rTo p\ZZ_p$ defined 
+% on the formal group $\hat E$. 
+ 
+%  For $\nu=\eta$, we define first the $p$-adic sigma function of Bernardi $\sigma(z)$ as in~\cite{bernardi}. Denote by $t=-\tfrac{x}{y}$ the uniformizer at $\ZeroE$. %and write $z(t) = \log_{\hat E}(t)$. 
+% Define the Weierstrass $\wp$-function as usual by 
+%  \begin{equation*}
+%   \wp(t) = x(t)+\frac{a_1^2+4\,a_2}{12} \in\QQ((t))\,.
+%  \end{equation*}
+
+% Here $a_1$ and $a_2$ are the coefficients of the minimal Weierstrass
+% equation~\eqref{w_eq} of $E$. The function $\wp(t)$ is a solution to
+% the usual differential equation. We define the sigma-function of
+% Bernardi to be a solution of the equation\william{``the'' means it is unique; ``a'' means
+% it isn't unique -- which is it?  Also, is there any integrality condition?  I think it's
+% not unique, so we should say ``a'', and say what it is unique up to (a constant?). Christian: Now it is unique.}
+%  \begin{equation*}
+%    - \wp(t)  = \frac{d}{\omegaE}\left(\frac{1}{\sigma}\cdot\frac{d\sigma}{\omegaE}\right)
+%  \end{equation*}
+%  such that $\sigma(0)=0$, $\frac{d\sigma}{dt}(0) =1$, and $\sigma(t(-P))=-\sigma(t(P))$.
+%  This provides us with a series 
+%  \begin{equation*}
+%   \sigma(t) = t + \frac{a_1}{2}\,t^2 + \frac{a_1^2+a_2}{3}\,t^3+\frac{a_1^3+2a_1a_2+3a_3}{4}\,t^4+\cdots  \in \QQ(\!(t)\!)\,.
+%  \end{equation*}
+%  As a function on the formal group $\hat E(p\ZZ_p)$ it converges for $\ord_p(t) > \tfrac{1}{p-1}$.
+ 
+%   Given a point $P$ in $E(\QQ)$ there exists a multiple $m\cdot P$ such that $\sigma(t(P))$ converges and such that $m\cdot P$ has good reduction at all primes. Denote by $e(m\cdot P)\in\ZZ$ the square root of the denominator of the $x$-coordinate of $m\cdot P$.  Now define
+%   \begin{equation*}
+%    h_{\eta}(P) = \frac{2}{m^2} \cdot \log_p\left (\frac{\sigma(t(m\cdot P))}{e(m\cdot P)}\right )\,.
+%   \end{equation*}
+%  It is proved in~\cite{bernardi} that this function is quadratic and satisfies the parallelogram law.
+ 
+%   Finally, if $\nu= a\, \omega+b\,\eta$ then put
+%   \begin{equation*}
+%    h_\nu(P) = a \, h_{\omega}(P) + b\, h_{\eta}(P)\,.
+%   \end{equation*}
+%   This quadratic function induces a bilinear symmetric pairing $\langle\cdot,\cdot\rangle_{\nu}$ with values in $\QQ_p$.
+  
+%   \subsection{The good ordinary case}
+%   Since we have only a single $p$-adic $L$-function in the case that the reduction is good ordinary, we have also to pin down a canonical choice of a $p$-adic height function. This was first done by Schneider~\cite{schneider1} and Perrin-Riou~\cite{pr82}. We refer to~\cite{mt} and~\cite{mst} for more details.
+  
+%   Let $\nu_{\alpha}= a \, \omega + b\,\eta$ be an eigenvector of $\varphi$ on $D_p(E)$ associated to the eigenvalue $\tfrac{1}{\alpha}$. The value $e_2 =\mathbf{E}_2(E,\omegaE) = -12\cdot \tfrac{a}{b}$ is the value of the Katz $p$-adic Eisenstein series of weight $2$ at $(E,\omegaE)$.
+%   Then, if $P$ has good reduction at all primes and lies in the range of convergence of $\sigma(t)$, we define the canonical $p$-adic height of $P$ to be
+%   \begin{align}
+%    \hat h_p (P) &= \frac{1}{b}\cdot h_{\nu_{\alpha}}(P) \notag\\ 
+%    				&= -\frac{a}{b} \cdot \logE(P)^2 +2\, \log\left (\frac{\sigma(t(P))}{e( P)}\right ) \notag\\
+% 				&= 2\,\log_p \left ( \frac{\exp(\frac{e_2}{24} \logE(P)^2)\cdot \sigma(t(P))}{e(P)} \right) = 2\, \log_p \left ( \frac{\sigma_p(t(P))}{e(P)} \right)\,. \label{hp_eq}
+% \end{align} 
+
+% The function $\sigma_p(t)$, defined by the last line, is called the
+% canonical sigma-function, see~\cite{mt}, it is known to lie in
+% $\ZZ_p[\![t]\!]$.  The $p$-adic height defined here is up to the
+% factor of $2$ the same as in~\cite{mst}.\footnote{This factor is
+%   needed if one does not want to modify the $p$-adic version of the
+%   Birch and Swinnerton-Dyer conjecture~\ref{pbsd_ord_con}.}
+  
+% We write $\langle \cdot,\cdot\rangle_p$ for the canonical $p$-adic
+% height pairing on $E(\QQ)$ associated to $\hat h_p$, and we
+% write $\Reg_p(E/\QQ)$ for the discriminant of the height pairing 
+% on $E(\QQ)/E(\QQ)_{\tor}$, which is well defined up to sign. 
+  
+% \begin{conjecture}{Schneider~\cite{schneider1}}\label{conreg_con}
+%   The canonical $p$-adic height is non-de\-ge\-ne\-ra\-te on 
+%   $E(\QQ)/E(\QQ)_{\tor}$. In other words, the canonical $p$-adic regulator
+%   $\Reg_p(E/\QQ)$ is nonzero.
+% \end{conjecture}
+  
+% Apart from the special case treated in~\cite{bertrand} of curves with
+% complex multiplication of rank $1$, there are hardly any results on
+% this conjecture. See also~\cite{wuth04}.
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 

@@ -1,0 +1,19 @@
+%-----------------------------------------------------------------------------
+% Beginning of gsm-l.sup
+%-----------------------------------------------------------------------------
+
+Supplementary Instructions
+--------------------------
+
+This series follows the basic specifications and style for AMS
+monographs, except that theorem heads are set in bold and not indented.
+The standard `amsbook' style for theorem heads is available as an
+option:
+
+  \documentclass[theoremb]{gsm-l}
+
+[1997/01/27]
+
+%-----------------------------------------------------------------------------
+% End of gsm-l.sup
+%-----------------------------------------------------------------------------
