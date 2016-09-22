@@ -8,7 +8,7 @@ to the arithmetic of elliptic curves.
 
 LICENSE: Creative Commons, non-commercial use/replication allowed
 
-To read it, find the file main.pdf here.
+To read it, [download the file main.pdf](https://github.com/williamstein/bsd/raw/master/main.pdf).
 
 
 
